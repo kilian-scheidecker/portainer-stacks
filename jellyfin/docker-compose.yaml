@@ -1,0 +1,13 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    network_mode: host
+    ports:
+      - 8920:8920
+    volumes:
+      - /home/kilian/container_data/jellyfin/config:/config
+      - /home/kilian/container_data/jellyfin/media:/media
+      - /home/kilian/container_data/jellyfin/cache:/cache
+    restart: unless-stopped
+      
