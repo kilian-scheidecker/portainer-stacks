@@ -1,0 +1,15 @@
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/CET
+    volumes:
+      - /home/kilian/container_data/radarr/config:/config
+      - /home/kilian/container_data/jellyfin/media/movies:/movies
+      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
