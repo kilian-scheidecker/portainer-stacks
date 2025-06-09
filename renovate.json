@@ -7,7 +7,8 @@
     {
       "matchDatasources": ["docker"],
       "matchPackagePatterns": [".*"],
-      "groupName": "docker image updates"
+      "groupName": "docker image updates",
+      "allowedVersions": "/^[0-9]+\\.[0-9]+(\\.[0-9]+)?$/",
     }
   ]
 }
