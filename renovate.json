@@ -1,0 +1,14 @@
+{
+  "extends": ["config:base"],
+  "docker-compose": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": [".*"],
+      "groupName": "docker image updates",
+      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$/",
+    }
+  ]
+}
