@@ -11,7 +11,7 @@
         "docker"
       ],
       "groupName": "docker image updates",
-      "allowedVersions": "/^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$/",
+      "allowedVersions": "/^\\d+\\.\\d+(\\.\\d+)?(\\.\\d+)?$/",
       "matchPackageNames": [
         "/.*/"
       ]
