@@ -1,0 +1,11 @@
+services:
+  graphite-exporter:
+    image: prom/graphite-exporter:latest
+    container_name: graphite-exporter
+    ports:
+      - "9109:9109"  # Graphite input
+      - "9108:9108"  # Prometheus scrapes metrics here
+    command:
+      - '--graphite.listen-address=:9109'
+      - '--web.listen-address=:9108'
+    restart: unless-stopped
