@@ -1,0 +1,6 @@
+services:
+  sbb-api:
+    image: 192.168.1.45:5000/sbb-api:latest
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
