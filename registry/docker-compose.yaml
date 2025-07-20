@@ -11,7 +11,7 @@ services:
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
-
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
 
 volumes:
   registry-data:
