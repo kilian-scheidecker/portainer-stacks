@@ -7,8 +7,6 @@ services:
       - "5000:5000"
     volumes:
       - registry-data:/var/lib/registry
-    environment:
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin: ['http://192.168.1.45:8081']
 
 volumes:
   registry-data:
