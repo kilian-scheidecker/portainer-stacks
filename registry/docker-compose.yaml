@@ -7,8 +7,6 @@ services:
       - "5000:5000"
     volumes:
       - registry-data:/var/lib/registry
-      - /home/container_data/docker-registry/config.yaml:/etc/docker/registry/config.yaml  # Mount custom config
-    command: ["serve", "/etc/docker/registry/config.yaml"]      # Use custom config
 
 volumes:
   registry-data:
