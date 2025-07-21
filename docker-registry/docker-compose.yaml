@@ -1,23 +1,28 @@
 services:
   # Actual docker registry hosted on port 5000
   registry:
-    image: registry:2
+    image: registry:2.8.2
     container_name: registry
     restart: unless-stopped
     ports:
       - "5000:5000"
     volumes:
-      - ~/container_data/docker-registry:/var/lib/registry
+      - registry_data:/var/lib/registry
     environment:
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
   # Registry UI for nice web interface to docker images
   registry-ui:
-    image: joxit/docker-registry-ui:latest
+    image: joxit/docker-registry-ui:1.5.0
     ports:
       - "8081:80"
     environment:
       - REGISTRY_TITLE=Hephaistos Local Docker Registry
       - REGISTRY_URL=http://192.168.1.45:5000
       - DELETE_IMAGES="true"
+    depends_on:
+      - registry
+
+volumes:
+  registry_data:
