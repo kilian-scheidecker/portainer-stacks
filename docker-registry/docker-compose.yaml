@@ -1,6 +1,6 @@
 services:
   # Actual docker registry hosted on port 5000
-  docker-registry:
+  registry:
     image: registry:2
     container_name: registry
     restart: unless-stopped
@@ -12,7 +12,7 @@ services:
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
-  # Docker registry UI for nice web interface
+  # Registry UI for nice web interface to docker images
   registry-ui:
     image: joxit/docker-registry-ui:latest
     ports:
