@@ -19,7 +19,6 @@ services:
     ports:
       - "8081:80"
     environment:
-      - SINGLE_REGISTRY = true
       - REGISTRY_TITLE = Hephaistos Local Docker Registry
       - REGISTRY_URL = http://192.168.1.45:5000
       - DELETE_IMAGES = true
