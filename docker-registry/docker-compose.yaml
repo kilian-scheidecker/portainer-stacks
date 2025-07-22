@@ -7,9 +7,9 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - registry_data:/var/lib/registry
+      - /home/kilian/container_data/docker-registry:/var/lib/registry
     environment:
-      - REGISTRY_STORAGE_DELETE_ENABLED = true
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
@@ -19,11 +19,8 @@ services:
     ports:
       - "8081:80"
     environment:
-      - REGISTRY_TITLE = Hephaistos Local Docker Registry
-      - REGISTRY_URL = http://192.168.1.45:5000
-      - DELETE_IMAGES = true
+      - REGISTRY_TITLE=Hephaistos Local Docker Registry
+      - REGISTRY_URL=http://192.168.1.45:5000
+      - DELETE_IMAGES=true
     depends_on:
       - registry
-
-volumes:
-  registry_data:
