@@ -23,10 +23,6 @@ services:
       - REGISTRY_TITLE = Hephaistos Local Docker Registry
       - REGISTRY_URL = http://192.168.1.45:5000
       - DELETE_IMAGES = true
-      - SHOW_CATALOG_NB_TAGS = true
-      - CATALOG_MIN_BRANCHES = 1
-      - CATALOG_MAX_BRANCHES = 1
-      - TAGLIST_PAGE_SIZE = 100
       - REGISTRY_SECURED = false
     depends_on:
       - registry
