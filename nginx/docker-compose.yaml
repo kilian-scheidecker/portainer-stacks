@@ -1,7 +1,7 @@
 
 services:
   nginxproxymanager:
-    image: jc21/nginx-proxy-manager:latest
+    image: jc21/nginx-proxy-manager:2.12.6
     container_name: nginxproxymanager
     restart: always
     ports:
@@ -9,5 +9,5 @@ services:
       - "81:81"     # NPM Web UI
       - "443:443"   # HTTPS
     volumes:
-      - /srv/nginxproxymanager/data:/data
-      - /srv/nginxproxymanager/letsencrypt:/etc/letsencrypt
+      - ~/container_data/nginx/data:/data
+      - ~/container_data/nginx/letsencrypt:/etc/letsencrypt
