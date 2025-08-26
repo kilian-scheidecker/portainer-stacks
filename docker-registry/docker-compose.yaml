@@ -1,7 +1,7 @@
 services:
   # Actual docker registry hosted on port 5000
   registry:
-    image: registry:2.8
+    image: registry:3.0
     container_name: registry
     restart: unless-stopped
     ports:
