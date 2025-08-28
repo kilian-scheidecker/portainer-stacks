@@ -4,3 +4,5 @@ services:
     container_name: cloudflared
     restart: always
     command: tunnel run 2c03d254-18c2-4ec5-b000-f79bf256c7cb
+    volumes:
+      - ~/container_data/cloudflared:/etc/cloudflared
