@@ -5,9 +5,7 @@ services:
     container_name: nginxproxymanager
     restart: always
     ports:
-      - "80:80"     # HTTP
       - "81:81"     # NPM Web UI
-      - "443:443"   # HTTPS
     volumes:
       - ~/container_data/nginx/data:/data
       - ~/container_data/nginx/letsencrypt:/etc/letsencrypt
