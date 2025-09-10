@@ -11,6 +11,7 @@ services:
       database__connection__user: ghost
       database__connection__password: ghostpass
       database__connection__database: ghostdb
+      url: https://petits-bouts.com
     volumes:
       - ~/container_data/ghost/content:/var/lib/ghost/content
     depends_on:
