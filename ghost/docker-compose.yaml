@@ -32,7 +32,3 @@ services:
       - /home/kilian/container_data/ghost/mysql:/var/lib/mysql
     networks:
       - web
-
-networks:
-  web:
-    driver: bridge

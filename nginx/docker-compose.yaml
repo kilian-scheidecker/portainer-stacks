@@ -13,3 +13,7 @@ services:
       - ~/container_data/nginx/letsencrypt:/etc/letsencrypt
     networks:
       - web
+
+networks:
+  web:
+    driver: bridge
