@@ -1,13 +1,13 @@
 services:
   flaresolverr:
-    image: ghcr.io/flaresolverr/flaresolverr:3.3.20
+    image: ghcr.io/flaresolverr/flaresolverr:latest
     container_name: flaresolverr
     ports:
       - 8191:8191
     restart: unless-stopped
 
   jackett:
-    image: linuxserver/jackett:0.23.20
+    image: linuxserver/jackett:latest
     container_name: jackett
     environment:
       - PUID=1000
@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
 
   qbittorrent:
-    image: linuxserver/qbittorrent:20.04.1
+    image: linuxserver/qbittorrent:latest
     container_name: qbittorrent
     environment:
       - PUID=1000
@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
 
   radarr:
-    image: linuxserver/radarr:5.27.5
+    image: linuxserver/radarr:latest
     container_name: radarr
     environment:
       - PUID=1000
@@ -52,7 +52,7 @@ services:
     restart: unless-stopped
 
   sonarr:
-    image: linuxserver/sonarr:4.0.15
+    image: linuxserver/sonarr:latest
     container_name: sonarr
     environment:
       - PUID=1000
