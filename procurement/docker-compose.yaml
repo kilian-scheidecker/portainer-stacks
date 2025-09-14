@@ -1,0 +1,67 @@
+services:
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:3.3.20
+    container_name: flaresolverr
+    ports:
+      - 8191:8191
+    restart: unless-stopped
+
+  jackett:
+    image: linuxserver/jackett:0.22.2163
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/CET
+    volumes:
+      - /home/kilian/container_data/jackett/config:/config
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:20.04.1
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/CET
+      - WEBUI_PORT=8080
+    volumes:
+      - /home/kilian/container_data/qbittorrent/config:/config
+      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr:5.26.2
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/CET
+    volumes:
+      - /home/kilian/container_data/radarr/config:/config
+      - /home/kilian/container_data/jellyfin/media/movies:/movies
+      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr:4.0.15
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/CET
+    volumes:
+      - /home/kilian/container_data/sonarr/config:/config
+      - /home/kilian/container_data/jellyfin/media/series:/tv
+      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
