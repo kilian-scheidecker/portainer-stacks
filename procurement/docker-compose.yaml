@@ -15,6 +15,7 @@ services:
       - TZ=Etc/CET
     volumes:
       - /home/kilian/container_data/jackett/config:/config
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 9117:9117
     restart: unless-stopped
@@ -30,6 +31,7 @@ services:
     volumes:
       - /home/kilian/container_data/qbittorrent/config:/config
       - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 8080:8080
       - 6881:6881
@@ -47,6 +49,7 @@ services:
       - /home/kilian/container_data/radarr/config:/config
       - /home/kilian/container_data/jellyfin/media/movies:/movies
       - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -62,6 +65,7 @@ services:
       - /home/kilian/container_data/sonarr/config:/config
       - /home/kilian/container_data/jellyfin/media/series:/tv
       - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - /etc/timezone:/etc/timezone:ro
     ports:
       - 8989:8989
     restart: unless-stopped
