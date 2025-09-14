@@ -15,6 +15,7 @@ services:
       TRUST_PROXY: true
     volumes:
       - /home/kilian/container_data/ghost/content:/var/lib/ghost/content
+      - /home/kilian/container_data/ghost/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db
