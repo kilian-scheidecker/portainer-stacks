@@ -13,9 +13,11 @@ services:
       database__connection__database: ghostdb
       url: https://petits-bouts.com
     volumes:
-      - ~/container_data/ghost/content:/var/lib/ghost/content
+      - /home/kilian/container_data/ghost/content:/var/lib/ghost/content
     depends_on:
       - db
+    networks:
+        - web
 
   db:
     image: mysql:8
@@ -27,4 +29,6 @@ services:
       MYSQL_USER: ghost
       MYSQL_PASSWORD: ghostpass
     volumes:
-      - ~/container_data/ghost/mysql:/var/lib/mysql
+      - /home/kilian/container_data/ghost/mysql:/var/lib/mysql
+    networks:
+      - web
