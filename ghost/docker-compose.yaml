@@ -11,7 +11,7 @@ services:
       database__connection__user: ghost
       database__connection__password: ghostpass
       database__connection__database: ghostdb
-      url: "https://petits-bouts.com"
+      # url: "https://petits-bouts.com"
       TRUST_PROXY: true
     volumes:
       - /home/kilian/container_data/ghost/content:/var/lib/ghost/content
