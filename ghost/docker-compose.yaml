@@ -12,6 +12,7 @@ services:
       database__connection__password: ghostpass
       database__connection__database: ghostdb
       # url: "https://petits-bouts.com"
+      NODE_ENV: development
       TRUST_PROXY: true
     volumes:
       - /home/kilian/container_data/ghost/content:/var/lib/ghost/content
