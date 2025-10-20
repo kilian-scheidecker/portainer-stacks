@@ -7,7 +7,7 @@ services:
       - "2368:2368"
     environment:
       database__client: mysql
-      database__connection__host: db
+      database__connection__host: db-petits-bouts
       database__connection__user: ghost_petits_bouts
       database__connection__password: ghostpass
       database__connection__database: ghostdb_petits_bouts
