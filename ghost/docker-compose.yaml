@@ -23,6 +23,20 @@ services:
     networks:
         - web
 
+  db-petits-bouts:
+    image: mysql:8
+    container_name: ghost_db-petits-bouts
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ghostdb_petitsbouts
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghostpass
+    volumes:
+      - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
+    networks:
+      - web
+
   ghost-the-food-revolution:
     image: ghost:5
     container_name: the-food-revolution.com
@@ -47,27 +61,13 @@ services:
     networks:
         - web
 
-  db-petits-bouts:
-    image: mysql:8
-    container_name: ghost_db-petits-bouts
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: ghostdb_foodrevolution
-      MYSQL_USER: ghost
-      MYSQL_PASSWORD: ghostpass
-    volumes:
-      - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
-    networks:
-      - web
-
   db-the-food-revolution:
     image: mysql:8
     container_name: ghost_db-the-food-revolution
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: ghostdb_petitsbouts
+      MYSQL_DATABASE: ghostdb_foodrevolution
       MYSQL_USER: ghost
       MYSQL_PASSWORD: ghostpass
     volumes:
