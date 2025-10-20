@@ -28,7 +28,7 @@ services:
     container_name: the-food-revolution.com
     restart: always
     ports:
-      - "2368:2368"
+      - "2369:2368"
     environment:
       database__client: mysql
       database__connection__host: db
