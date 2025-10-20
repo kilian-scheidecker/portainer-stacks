@@ -49,7 +49,7 @@ services:
       database__connection__user: ghost
       database__connection__password: ghostpass
       database__connection__database: ghostdb_foodrevolution
-      # url: "https://the-food-revolution.com"
+      url: "https://the-food-revolution.com"
       # NODE_ENV: development
       TRUST_PROXY: true
     volumes:
