@@ -23,7 +23,7 @@ services:
     networks:
         - web
 
-  ghost-the-food-revolution.com:
+  ghost-the-food-revolution:
     image: ghost:5
     container_name: the-food-revolution.com
     restart: always
@@ -43,7 +43,7 @@ services:
       - /home/kilian/container_data/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
-      - db-the-food-revolution.com
+      - db-the-food-revolution
     networks:
         - web
 
