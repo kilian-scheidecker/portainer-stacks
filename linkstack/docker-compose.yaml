@@ -1,6 +1,6 @@
 services:
   linkstack:
-    image: linkstackorg/linkstack:latest
+    image: ilyavassyutovich/linkstack:v4.8.4
     container_name: linkstack
     hostname: linkstack
     ports:
