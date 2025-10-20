@@ -21,7 +21,7 @@ services:
     depends_on:
       - db-the-food-revolution
     networks:
-        - ghostnet_foodrevolution
+        - ghostnet
 
   db-the-food-revolution:
     image: mysql:8
@@ -35,8 +35,8 @@ services:
     volumes:
       - /home/kilian/container_data/ghost/mysql-the-food-revolution:/var/lib/mysql
     networks:
-      - ghostnet_foodrevolution
+      - ghostnet
 
 networks:
-  ghostnet_foodrevolution:
+  ghostnet:
     external: true
