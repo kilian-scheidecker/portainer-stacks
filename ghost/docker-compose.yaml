@@ -10,7 +10,7 @@ services:
       database__connection__host: db
       database__connection__user: ghost
       database__connection__password: ghostpass
-      database__connection__database: ghostdb
+      database__connection__database: ghostdb_petitsbouts
       # url: "https://petits-bouts.com"
       # NODE_ENV: development
       TRUST_PROXY: true
@@ -19,7 +19,7 @@ services:
       - /home/kilian/container_data/ghost/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
-      - db
+      - db-petits-bouts
     networks:
         - web
 
@@ -34,7 +34,7 @@ services:
       database__connection__host: db
       database__connection__user: ghost
       database__connection__password: ghostpass
-      database__connection__database: ghostdb
+      database__connection__database: ghostdb_foodrevolution
       # url: "https://the-food-revolution.com"
       # NODE_ENV: development
       TRUST_PROXY: true
@@ -43,21 +43,35 @@ services:
       - /home/kilian/container_data/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
-      - db
+      - db-the-food-revolution.com
     networks:
         - web
 
-  db:
+  db-the-food-revolution:
     image: mysql:8
-    container_name: ghost_db
+    container_name: ghost_db-the-food-revolution
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: ghostdb
+      MYSQL_DATABASE: ghostdb_petitsbouts
       MYSQL_USER: ghost
       MYSQL_PASSWORD: ghostpass
     volumes:
-      - /home/kilian/container_data/ghost/mysql:/var/lib/mysql
+      - /home/kilian/container_data/ghost/mysql-the-food-revolution:/var/lib/mysql
+    networks:
+      - web
+
+  db-petits-bouts:
+    image: mysql:8
+    container_name: ghost_db-petits-bouts
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ghostdb_foodrevolution
+      MYSQL_USER: ghost
+      MYSQL_PASSWORD: ghostpass
+    volumes:
+      - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
     networks:
       - web
 
