@@ -12,3 +12,5 @@ services:
       UPLOAD_MAX_FILESIZE: "16M"
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
       LOG_LEVEL: "info"
+    volumes:
+      - /home/kilian/container_data/linkstack:/htdocs
