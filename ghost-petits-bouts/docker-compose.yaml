@@ -21,7 +21,7 @@ services:
     depends_on:
       - db-petits-bouts
     networks:
-        - web
+        - ghostnet_petitsbouts
 
   db-petits-bouts:
     image: mysql:8
@@ -35,8 +35,8 @@ services:
     volumes:
       - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
     networks:
-      - web
+      - ghostnet_petitsbouts
 
 networks:
-  web:
+  ghostnet_petitsbouts:
     external: true
