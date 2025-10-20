@@ -19,7 +19,7 @@ services:
       - /home/kilian/container_data/ghost/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
-      - db
+      - db-petits-bouts
     networks:
         - web
 
