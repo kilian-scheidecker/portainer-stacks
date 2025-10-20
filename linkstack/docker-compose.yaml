@@ -11,3 +11,4 @@ services:
       UPLOAD_MAX_FILESIZE: "16M"
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
       LOG_LEVEL: "info"
+      FORCE_HTTPS: "true"
