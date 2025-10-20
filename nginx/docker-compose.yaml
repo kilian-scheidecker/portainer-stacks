@@ -11,7 +11,7 @@ services:
     volumes:
       - ~/container_data/nginx/data:/data
       - ~/container_data/nginx/letsencrypt:/etc/letsencrypt
-    network:
+    networks:
       - ghostnet
 
 networks:
