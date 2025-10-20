@@ -1,0 +1,14 @@
+services:
+  linkstack:
+    image: linkstackorg/linkstack:latest
+    container_name: linkstack
+    hostname: linkstack
+    ports:
+      - '8878:80'
+      - '8879:443'
+    environment:
+      TZ: "Europe/Zurich"
+      PHP_MEMORY_LIMIT: "512M"
+      UPLOAD_MAX_FILESIZE: "16M"
+      HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
+      LOG_LEVEL: "info"
