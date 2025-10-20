@@ -27,6 +27,8 @@ services:
     image: mysql:8
     container_name: ghost_db_the_food_revolution
     restart: always
+    ports:
+      - "3307:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: ghostdb_the_food_revolution
