@@ -4,7 +4,7 @@ services:
     container_name: ghost_the_food_revolution
     restart: always
     ports:
-      - "2368:2368"
+      - "2369:2368"
     environment:
       database__client: mysql
       database__connection__host: db-the-food-revolution
