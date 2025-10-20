@@ -1,7 +1,7 @@
 services:
-  ghost:
+  ghost-petits-bouts:
     image: ghost:5
-    container_name: ghost
+    container_name: petits-bouts.com
     restart: always
     ports:
       - "2368:2368"
@@ -15,8 +15,32 @@ services:
       # NODE_ENV: development
       TRUST_PROXY: true
     volumes:
-      - /home/kilian/container_data/ghost/content:/var/lib/ghost/content
-      - /home/kilian/container_data/ghost/config.production.json:/var/lib/ghost/config.production.json
+      - /home/kilian/container_data/ghost/petits-bouts/content:/var/lib/ghost/content
+      - /home/kilian/container_data/ghost/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      - db
+    networks:
+        - web
+
+  ghost-the-food-revolution.com:
+    image: ghost:5
+    container_name: the-food-revolution.com
+    restart: always
+    ports:
+      - "2368:2368"
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: ghost
+      database__connection__password: ghostpass
+      database__connection__database: ghostdb
+      # url: "https://the-food-revolution.com"
+      # NODE_ENV: development
+      TRUST_PROXY: true
+    volumes:
+      - /home/kilian/container_data/ghost/the-food-revolution/content:/var/lib/ghost/content
+      - /home/kilian/container_data/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db
