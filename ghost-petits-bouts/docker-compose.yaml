@@ -14,6 +14,7 @@ services:
       # url: "https://petits-bouts.com"
       # NODE_ENV: development
       TRUST_PROXY: true
+      security__staffDeviceVerification: false
     volumes:
       - /home/kilian/container_data/ghost/petits-bouts/content:/var/lib/ghost/content
       - /home/kilian/container_data/ghost/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
