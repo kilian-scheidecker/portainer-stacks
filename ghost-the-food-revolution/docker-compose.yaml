@@ -15,6 +15,7 @@ services:
       # NODE_ENV: development
       TRUST_PROXY: true
       force__https: false
+      security__staffDeviceVerification: false
     volumes:
       - /home/kilian/container_data/ghost/the-food-revolution/content:/var/lib/ghost/content
       - /home/kilian/container_data/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
