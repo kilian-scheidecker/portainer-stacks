@@ -10,7 +10,7 @@ services:
       - /home/kilian/container_data/docker-registry:/var/lib/registry
     environment:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081"]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["http://192.168.1.45:8081", "https://docker-registry-ui.petits-bouts.com"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
   # Registry UI for nice web interface to docker images
