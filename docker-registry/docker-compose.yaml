@@ -10,9 +10,9 @@ services:
       - /home/kilian/container_data/docker-registry:/var/lib/registry
     environment:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=https://docker-registry-ui.petits-bouts.com
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=GET,HEAD,DELETE
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=Authorization,Accept
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["https://docker-registry-ui.petits-bouts.com"]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
       - REGISTRY_OTEL_ENABLED=false
   # Registry UI for nice web interface to docker images
   registry-ui:
@@ -22,8 +22,8 @@ services:
     ports:
       - "8081:80"
     environment:
-      - REGISTRY_TITLE=Hephaistos Local Docker Registry
-      - REGISTRY_URL=https://docker-registry.petits-bouts.com
+      - REGISTRY_TITLE="Hephaistos Local Docker Registry"
+      - REGISTRY_URL="https://docker-registry.petits-bouts.com"
       - DELETE_IMAGES=true
     depends_on:
       - registry
