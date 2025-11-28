@@ -11,8 +11,8 @@ services:
     environment:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=https://docker-registry-ui.petits-bouts.com
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
-      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=GET,HEAD,DELETE
+      - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=Authorization,Accept
       - REGISTRY_OTEL_ENABLED=false
   # Registry UI for nice web interface to docker images
   registry-ui:
