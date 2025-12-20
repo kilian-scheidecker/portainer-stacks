@@ -1,7 +1,5 @@
 services:
   postgresql:
-    env_file:
-    - .env
     environment:
       POSTGRES_DB: ${PG_DB:-authentik}
       POSTGRES_PASSWORD: ${PG_PASS:?database password required}
@@ -23,8 +21,6 @@ services:
     depends_on:
       postgresql:
         condition: service_healthy
-    env_file:
-    - .env
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
@@ -37,15 +33,13 @@ services:
     - 9002:9443
     restart: unless-stopped
     volumes:
-    - ./media:/media
-    - ./custom-templates:/templates
+    - $AUTHENTIK_BASE_PATH/media:/media
+    - $AUTHENTIK_BASE_PATH/custom-templates:/templates
   worker:
     command: worker
     depends_on:
       postgresql:
         condition: service_healthy
-    env_file:
-    - .env
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
@@ -57,9 +51,9 @@ services:
     user: root
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
-    - ./media:/media
-    - ./certs:/certs
-    - ./custom-templates:/templates
+    - $AUTHENTIK_BASE_PATH/media:/media
+    - $AUTHENTIK_BASE_PATH/certs:/certs
+    - $AUTHENTIK_BASE_PATH/custom-templates:/templates
 volumes:
   database:
     driver: local
