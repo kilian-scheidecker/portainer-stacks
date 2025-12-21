@@ -7,4 +7,3 @@ services:
     restart: unless-stopped
     volumes:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
-    - $GRAFANA_BASE_PATH/conf:/etc/grafana
