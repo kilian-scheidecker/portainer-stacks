@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   kafka:
-    image: confluentinc/cp-kafka:7.8.0
+    image: confluentinc/cp-kafka:latest
     container_name: kafka
     hostname: kafka
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
       - kafka-net
   
   influxdb:
-    image: influxdb:2.8
+    image: influxdb:latest
     container_name: influxdb
     ports:
       - "8086:8086"
