@@ -41,7 +41,7 @@ services:
       KAFKA_MIN_INSYNC_REPLICAS: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
     volumes:
-      - ./kafka/data:/var/lib/kafka/data
+      - $KAFKA_BASE_PATH/data:/var/lib/kafka/data
     networks:
       - kafka-net
 
@@ -57,15 +57,42 @@ services:
       - kafka
     networks:
       - kafka-net
-
-
-  kafka-exporter:
-    image: danielqsj/kafka-exporter 
-    container_name: kafka-exporter
-    restart: unless-stopped
-    command: ["--kafka.server=kafka:9092"]
+  
+  influxdb:
+    image: influxdb:2.8
+    container_name: influxdb
     ports:
-      - 9308:9308
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: adminpass
+      DOCKER_INFLUXDB_INIT_ORG: myorg
+      DOCKER_INFLUXDB_INIT_BUCKET: flir_data
+    volumes:
+      - $KAFKA_BASE_PATH/influxdb:/var/lib/influxdb2
+    restart: unless-stopped
+    networks:
+      - kafka-net
+
+  kafka-connect:
+    image: confluentinc/cp-kafka-connect:latest
+    container_name: kafka-connect
+    ports:
+      - "8083:8083"
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+      CONNECT_REST_PORT: 8083
+      CONNECT_GROUP_ID: "connect-cluster"
+      CONNECT_CONFIG_STORAGE_TOPIC: "connect-configs"
+      CONNECT_OFFSET_STORAGE_TOPIC: "connect-offsets"
+      CONNECT_STATUS_STORAGE_TOPIC: "connect-status"
+      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
+      CONNECT_PLUGIN_PATH: "/usr/share/java"
     depends_on:
       - kafka
     networks:
