@@ -10,3 +10,8 @@ services:
       - GF_SERVER_ROOT_URL=$ROOT_URL
     volumes:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
+    networks:
+      - kafka-net
+
+networks:
+  kafka-net:
