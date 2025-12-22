@@ -6,6 +6,7 @@ services:
     container_name: kafka
     hostname: kafka
     restart: unless-stopped
+    user: root
     ports:
       - "9092:9092"       # client connections
       - "9093:9093"       # controller port
