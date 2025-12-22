@@ -7,6 +7,6 @@ services:
     restart: unless-stopped
     user: '0'
     environment:
-      - ROOT_URL = $ROOT_URL
+      - GF_SERVER_ROOT_URL=$ROOT_URL
     volumes:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
