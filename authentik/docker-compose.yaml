@@ -51,10 +51,20 @@ services:
     restart: unless-stopped
     user: root
     volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-    - $AUTHENTIK_BASE_PATH/media:/media
-    - $AUTHENTIK_BASE_PATH/certs:/certs
-    - $AUTHENTIK_BASE_PATH/custom-templates:/templates
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $AUTHENTIK_BASE_PATH/media:/media
+      - $AUTHENTIK_BASE_PATH/certs:/certs
+      - $AUTHENTIK_BASE_PATH/custom-templates:/templates
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
+
+
+
+
 volumes:
   database:
     driver: local
