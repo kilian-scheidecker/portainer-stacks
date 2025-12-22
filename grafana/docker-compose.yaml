@@ -11,8 +11,8 @@ services:
     volumes:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
     networks:
-      - kafka-net
+      - hephaistos
 
 networks:
-  kafka-net:
+  hephaistos:
     external: true

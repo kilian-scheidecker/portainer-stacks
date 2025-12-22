@@ -22,7 +22,7 @@ services:
     depends_on:
       - db-petits-bouts
     networks:
-        - ghostnet
+        - hephaistos
 
   db-petits-bouts:
     image: mysql:8
@@ -36,8 +36,8 @@ services:
     volumes:
       - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
     networks:
-      - ghostnet
+      - hephaistos
 
 networks:
-  ghostnet:
+  hephaistos:
     external: true
