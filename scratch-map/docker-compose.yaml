@@ -1,0 +1,26 @@
+services:
+  scratch-map:
+    container_name: Scratch-Map
+    image: ad3m3r5/scratch-map:latest
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 8080 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
+    user: 0:0
+    environment:
+      ADDRESS: 0.0.0.0
+      PORT: 8080
+      DATA_DIR: /home/kilian/container_data/scratch-map
+      LOG_LEVEL: INFO
+      NODE_ENV: production
+    volumes:
+      - /home/kilian/container_data/scratch-map:/volume1/docker/scratchmap:rw
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
