@@ -1,0 +1,42 @@
+services:
+  ghost-princesse-poussin:
+    image: ghost:5
+    container_name: ghost_princesse_poussin
+    restart: always
+    environment:
+      database__client: mysql
+      database__connection__host: db-princesse-poussin
+      database__connection__user: ghost_princesse_poussin
+      database__connection__password: ghostpass
+      database__connection__database: ghostdb_princesse_poussin
+      url: "https://princesse-poussin.com"
+      # NODE_ENV: development
+      TRUST_PROXY: true
+      force__https: false
+      security__staffDeviceVerification: false
+    volumes:
+      - /home/kilian/container_data/ghost/princesse-poussin/content:/var/lib/ghost/content
+      - /home/kilian/container_data/ghost/princesse-poussin/config.production.json:/var/lib/ghost/config.production.json
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      - db-princesse-poussin
+    networks:
+        - hephaistos
+
+  db-princesse-poussin:
+    image: mysql:8
+    container_name: ghost_db_princesse_poussin
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: ghostdb_princesse_poussin
+      MYSQL_USER: ghost_princesse_poussin
+      MYSQL_PASSWORD: ghostpass
+    volumes:
+      - /home/kilian/container_data/ghost/mysql-princesse-poussin:/var/lib/mysql
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
