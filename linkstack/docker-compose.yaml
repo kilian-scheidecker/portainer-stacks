@@ -3,6 +3,7 @@ services:
     image: ilyavassyutovich/linkstack:v4.8.4
     container_name: linkstack
     hostname: linkstack
+    restart: unless-stopped
     ports:
       - "8878:80"
     environment:
