@@ -11,4 +11,10 @@ services:
       - /home/kilian/container_data/jellyfin/media:/media
       - /home/kilian/container_data/jellyfin/cache:/cache
     restart: unless-stopped
+     healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8096"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
       
