@@ -3,9 +3,9 @@ services:
   registry:
     image: registry:3.0
     container_name: registry
-    restart: unless-stopped
     ports:
       - "5000:5000"
+    restart: unless-stopped
     volumes:
       - /home/kilian/container_data/docker-registry:/var/lib/registry
     environment:
@@ -15,16 +15,31 @@ services:
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Methods=["GET", "HEAD", "DELETE"]
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
       - REGISTRY_OTEL_ENABLED=false
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+
+
   # Registry UI for nice web interface to docker images
   registry-ui:
     image: joxit/docker-registry-ui:2.5-debian
     container_name: registry-ui
-    restart: unless-stopped
     ports:
       - "8081:80"
+    restart: unless-stopped
     environment:
       - REGISTRY_TITLE=Hephaistos Local Docker Registry
       - REGISTRY_URL=https://docker-registry.petits-bouts.com
       - DELETE_IMAGES=true
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     depends_on:
       - registry
