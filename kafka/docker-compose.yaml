@@ -42,62 +42,33 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
     volumes:
       - $KAFKA_BASE_PATH/data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9092"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     networks:
       - hephaistos
 
   redpanda-console:
     image: redpandadata/console:latest
     container_name: redpanda-console
-    restart: unless-stopped
     ports:
       - "8082:8080"
+    restart: unless-stopped
     environment:
       KAFKA_BROKERS: kafka:29092
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
     depends_on:
       - kafka
     networks:
       - hephaistos
-  
-  influxdb:
-    image: influxdb:latest
-    container_name: influxdb
-    ports:
-      - "8086:8086"
-    environment:
-      DOCKER_INFLUXDB_INIT_MODE: setup
-      DOCKER_INFLUXDB_INIT_USERNAME: admin
-      DOCKER_INFLUXDB_INIT_PASSWORD: adminpass
-      DOCKER_INFLUXDB_INIT_ORG: myorg
-      DOCKER_INFLUXDB_INIT_BUCKET: flir_data
-    volumes:
-      - $KAFKA_BASE_PATH/influxdb:/var/lib/influxdb2
-    restart: unless-stopped
-    networks:
-      - hephaistos
-
-  kafka-connect:
-    image: confluentinc/cp-kafka-connect:latest
-    container_name: kafka-connect
-    ports:
-      - "8083:8083"
-    environment:
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
-      CONNECT_REST_PORT: 8083
-      CONNECT_GROUP_ID: "connect-cluster"
-      CONNECT_CONFIG_STORAGE_TOPIC: "connect-configs"
-      CONNECT_OFFSET_STORAGE_TOPIC: "connect-offsets"
-      CONNECT_STATUS_STORAGE_TOPIC: "connect-status"
-      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_INTERNAL_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_INTERNAL_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_REST_ADVERTISED_HOST_NAME: "kafka-connect"
-      CONNECT_PLUGIN_PATH: "/usr/share/java"
-    depends_on:
-      - kafka
-    networks:
-      - hephaistos
-
 
 networks:
   hephaistos:
