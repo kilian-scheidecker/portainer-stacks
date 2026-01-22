@@ -13,3 +13,9 @@ services:
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
       LOG_LEVEL: "info"
       FORCE_HTTPS: "true"
+   healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8878"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
