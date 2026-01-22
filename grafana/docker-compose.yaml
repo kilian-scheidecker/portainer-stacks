@@ -12,6 +12,13 @@ services:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
     networks:
       - hephaistos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
 
 networks:
   hephaistos:
