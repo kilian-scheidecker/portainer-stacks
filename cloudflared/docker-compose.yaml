@@ -1,0 +1,12 @@
+services:
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token $TUNNEL_TOKEN
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
