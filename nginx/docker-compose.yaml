@@ -8,10 +8,13 @@ services:
       - "80:80"    # Port http
       - "443:443"  # Port https
       - "81:81"    # NPM Web UI
-    user: "${UID}:${GID}"
+    user: $user
     volumes:
       - $NGINX_BASE_PATH/data:/data
       - $NGINX_BASE_PATH/letsencrypt:/etc/letsencrypt
+    environment:
+      - UID=$UID
+      - GID=$GID
     networks:
       - hephaistos
     healthcheck:
