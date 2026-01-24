@@ -16,7 +16,7 @@ services:
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Headers=["Authorization", "Accept"]
       - REGISTRY_OTEL_ENABLED=false
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5000 || exit 1"]
       interval: 2m
       timeout: 10s
       retries: 3
