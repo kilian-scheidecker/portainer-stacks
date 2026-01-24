@@ -32,16 +32,23 @@ services:
 
   grampsweb_celery:
     <<: *grampsweb  # YAML merge key copying the entire grampsweb service config
-    ports: []
     container_name: grampsweb_celery
+    command: celery -A gramps_webapi.celery worker --loglevel=INFO --concurrency=2
+    ports: []
     depends_on:
       - grampsweb
       - grampsweb_redis
-    command: celery -A gramps_webapi.celery worker --loglevel=INFO --concurrency=2
+    # No healthcheck
+    healthcheck:
+      disable: true
+    
 
   grampsweb_redis:
     image: docker.io/library/redis:7.2.4-alpine
     container_name: grampsweb_redis
+    # No healthcheck
+    healthcheck:
+      disable: true
 
 #networks:
 #  hephaistos:
