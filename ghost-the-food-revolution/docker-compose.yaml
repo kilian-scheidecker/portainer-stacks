@@ -15,7 +15,7 @@ services:
       security__staffDeviceVerification: false
     volumes:
       - $GHOST_BASE_PATH/the-food-revolution/content:/var/lib/ghost/content
-      - $GHOST_BASE_PATH/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
+      - $GHOST_BASE_PATH/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db-the-food-revolution
