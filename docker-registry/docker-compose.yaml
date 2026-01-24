@@ -1,4 +1,5 @@
 services:
+
   # Actual docker registry hosted on port 5000
   registry:
     image: registry:3.0
@@ -21,8 +22,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-
-
+    networks:
+      - hephaistos
 
   # Registry UI for nice web interface to docker images
   registry-ui:
@@ -36,10 +37,17 @@ services:
       - REGISTRY_URL=https://docker-registry.petits-bouts.com
       - DELETE_IMAGES=true
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8081 || exit 1"]
       interval: 2m
       timeout: 10s
       retries: 3
       start_period: 30s
+    networks:
+      - hephaistos
     depends_on:
       - registry
+
+
+networks:
+  hephaistos:
+    external: true
