@@ -11,9 +11,6 @@ services:
     volumes:
       - $NGINX_BASE_PATH/data:/data
       - $NGINX_BASE_PATH/letsencrypt:/etc/letsencrypt
-    environment:
-      - UID=$UID
-      - GID=$GID
     networks:
       - hephaistos
     healthcheck:
