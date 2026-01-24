@@ -12,12 +12,14 @@ services:
       PHP_MEMORY_LIMIT: "512M"
       UPLOAD_MAX_FILESIZE: "16M"
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
+      HTTP_SERVER_NAME: "192.168.1.45"
       LOG_LEVEL: "info"
-      FORCE_HTTPS: "true"
+      FORCE_HTTPS: "false"
     volumes:
       - $LINKSTACK_BASE_PATH/data:/htdocs
+      - $LINKSTACK_BASE_PATH/config:/app/config
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8878"]
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
       interval: 2m
       timeout: 10s
       retries: 3
