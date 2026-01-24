@@ -3,8 +3,6 @@ services:
     image: ghost:5
     container_name: ghost_petits_bouts
     restart: always
-    ports:
-      - "2368:2368"
     environment:
       database__client: mysql
       database__connection__host: db-petits-bouts
