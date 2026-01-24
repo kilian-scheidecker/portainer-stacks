@@ -1,9 +1,15 @@
 services:
+
+  # PostgrSQL database for authentik
   postgresql:
+    image: docker.io/library/postgres:16-alpine
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${PG_DB:-authentik}
       POSTGRES_PASSWORD: ${PG_PASS:?database password required}
       POSTGRES_USER: ${PG_USER:-authentik}
+    volumes:
+    - database:/var/lib/postgresql/data
     healthcheck:
       interval: 30s
       retries: 5
@@ -12,34 +18,38 @@ services:
       - CMD-SHELL
       - pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}
       timeout: 5s
-    image: docker.io/library/postgres:16-alpine
-    restart: unless-stopped
-    volumes:
-    - database:/var/lib/postgresql/data
+    networks:
+      - hephaistos
+
+  # Authentik server
   server:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
+    restart: unless-stopped
     command: server
-    depends_on:
-      postgresql:
-        condition: service_healthy
+    ports:
+      - 9001:9000
+      - 9002:9443
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
-    ports:
-    - 9001:9000
-    - 9002:9443
-    restart: unless-stopped
     volumes:
     - $AUTHENTIK_BASE_PATH/media:/media
     - $AUTHENTIK_BASE_PATH/custom-templates:/templates
-  worker:
-    command: worker
+    networks:
+      - hephaistos
     depends_on:
       postgresql:
         condition: service_healthy
+
+  # Authentik worker
+  worker:
+    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
+    restart: unless-stopped
+    user: root
+    command: worker
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
       AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
@@ -47,9 +57,6 @@ services:
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
       AUTHENTIK_BOOTSTRAP_PASSWORD: ${AUTHENTIK_BOOTSTRAP_PASSWORD}
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
-    restart: unless-stopped
-    user: root
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $AUTHENTIK_BASE_PATH/media:/media
@@ -57,13 +64,13 @@ services:
       - $AUTHENTIK_BASE_PATH/custom-templates:/templates
     networks:
       - hephaistos
+    depends_on:
+      postgresql:
+        condition: service_healthy
 
 networks:
   hephaistos:
     external: true
-
-
-
 
 volumes:
   database:
