@@ -13,6 +13,8 @@ services:
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
       LOG_LEVEL: "info"
       FORCE_HTTPS: "true"
+    volumes:
+      - $LINKSTACK_BASE_PATH:/htdocs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8878"]
       interval: 2m
