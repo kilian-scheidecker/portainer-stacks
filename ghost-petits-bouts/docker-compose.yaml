@@ -16,8 +16,8 @@ services:
       TRUST_PROXY: true
       security__staffDeviceVerification: false
     volumes:
-      - /home/kilian/container_data/ghost/petits-bouts/content:/var/lib/ghost/content
-      - /home/kilian/container_data/ghost/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
+      - $GHOST_BASE_PATH/petits-bouts/content:/var/lib/ghost/content
+      - $GHOST_BASE_PATH/petits-bouts/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db-petits-bouts
@@ -34,7 +34,7 @@ services:
       MYSQL_USER: ghost_petits_bouts
       MYSQL_PASSWORD: ghostpass
     volumes:
-      - /home/kilian/container_data/ghost/mysql-petits-bouts:/var/lib/mysql
+      - $GHOST_BASE_PATH/mysql-petits-bouts:/var/lib/mysql
     networks:
       - hephaistos
 
