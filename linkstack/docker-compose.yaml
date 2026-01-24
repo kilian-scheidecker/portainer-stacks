@@ -14,7 +14,7 @@ services:
       HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
       HTTP_SERVER_NAME: "192.168.1.45"
       LOG_LEVEL: "info"
-      FORCE_HTTPS: "false"
+      FORCE_HTTPS: "true"
     volumes:
       - $LINKSTACK_BASE_PATH/data:/htdocs
       - $LINKSTACK_BASE_PATH/config:/app/config
