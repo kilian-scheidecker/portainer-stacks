@@ -1,6 +1,7 @@
 services:
   grampsweb: &grampsweb
     image: ghcr.io/gramps-project/grampsweb:latest
+    container_name: grampsweb
     restart: unless-stopped
     ports:
       - "5001:5000"  # host:docker
