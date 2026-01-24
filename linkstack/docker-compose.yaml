@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     ports:
       - "8878:80"
+    user:"${UID}:${GID}"
     environment:
       TZ: "Europe/Zurich"
       PHP_MEMORY_LIMIT: "512M"
