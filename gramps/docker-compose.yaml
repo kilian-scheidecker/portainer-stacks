@@ -22,7 +22,7 @@ services:
     #networks:
     #  - hephaistos
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/ || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5000 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
