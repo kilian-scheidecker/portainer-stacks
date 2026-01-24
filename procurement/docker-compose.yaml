@@ -23,7 +23,7 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - /home/kilian/container_data/jackett/config:/config
+      - $STACK_BASE_PATH/jackett/config:/config
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9117"]
@@ -46,8 +46,8 @@ services:
       - TZ=Etc/CET
       - WEBUI_PORT=8080
     volumes:
-      - /home/kilian/container_data/qbittorrent/config:/config
-      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - $STACK_BASE_PATH/qbittorrent/config:/config
+      - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
@@ -67,9 +67,9 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - /home/kilian/container_data/radarr/config:/config
-      - /home/kilian/container_data/jellyfin/media/movies:/movies
-      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - $STACK_BASE_PATH/radarr/config:/config
+      - $MEDIA_PATH/movies:/movies
+      - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7878"]
@@ -90,9 +90,9 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - /home/kilian/container_data/sonarr/config:/config
-      - /home/kilian/container_data/jellyfin/media/series:/tv
-      - /home/kilian/container_data/qbittorrent/downloads:/downloads
+      - $STACK_BASE_PATH/sonarr/config:/config
+      - $MEDIA_PATH/series:/tv
+      - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8989"]
