@@ -13,11 +13,11 @@ services:
     environment:
       ADDRESS: 0.0.0.0
       PORT: 8080
-      DATA_DIR: /home/kilian/container_data/scratch-map
+      DATA_DIR: $SCRATCHMAP_BASE_PATH
       LOG_LEVEL: INFO
       NODE_ENV: production
     volumes:
-      - /home/kilian/container_data/scratch-map:/volume1/docker/scratchmap:rw
+      - $SCRATCHMAP_BASE_PATH:/volume1/docker/scratchmap:rw
     networks:
       - hephaistos
 
