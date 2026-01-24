@@ -7,7 +7,7 @@ services:
       - "5000:5000"
     restart: unless-stopped
     volumes:
-      - /home/kilian/container_data/docker-registry:/var/lib/registry
+      - $REGISTRY_BASE_PATH:/var/lib/registry
     environment:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["https://docker-registry-ui.petits-bouts.com"]
