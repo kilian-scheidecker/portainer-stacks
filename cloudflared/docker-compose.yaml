@@ -4,6 +4,8 @@ services:
     image: cloudflare/cloudflared
     restart: unless-stopped
     command: tunnel --no-autoupdate run --token $TUNNEL_TOKEN
+    environment:
+      - TUNNEL_TOKEN: $TUNNEL_TOKEN
     networks:
       - hephaistos
 
