@@ -11,7 +11,7 @@ services:
       GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://grampsweb_redis:6379/1
     volumes:
       - $GRAMPS_BASE_PATH/users:/app/users  # persist user database
-      - g$GRAMPS_BASE_PATH/index:/app/indexdir  # persist search index
+      - $GRAMPS_BASE_PATH/index:/app/indexdir  # persist search index
       - $GRAMPS_BASE_PATH/thumb_cache:/app/thumbnail_cache  # persist thumbnails
       - $GRAMPS_BASE_PATH/cache:/app/cache  # persist export and report caches
       - $GRAMPS_BASE_PATH/secret:/app/secret  # persist flask secret
