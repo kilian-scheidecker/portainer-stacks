@@ -9,8 +9,8 @@ services:
       - "443:443"  # Port https
       - "81:81"    # NPM Web UI
     volumes:
-      - ~/container_data/nginx/data:/data
-      - ~/container_data/nginx/letsencrypt:/etc/letsencrypt
+      - $NGINX_BASE_PATH/data:/data
+      - $NGINX_BASE_PATH/letsencrypt:/etc/letsencrypt
     networks:
       - hephaistos
     healthcheck:
