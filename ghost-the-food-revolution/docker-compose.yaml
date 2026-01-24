@@ -3,8 +3,6 @@ services:
     image: ghost:5
     container_name: ghost_the_food_revolution
     restart: always
-    ports:
-      - "2369:2368"
     environment:
       database__client: mysql
       database__connection__host: db-the-food-revolution
@@ -12,13 +10,12 @@ services:
       database__connection__password: ghostpass
       database__connection__database: ghostdb_the_food_revolution
       url: "https://the-food-revolution.com"
-      # NODE_ENV: development
       TRUST_PROXY: true
       force__https: false
       security__staffDeviceVerification: false
     volumes:
-      - /home/kilian/container_data/ghost/the-food-revolution/content:/var/lib/ghost/content
-      - /home/kilian/container_data/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
+      - $GHOST_BASE_PATH/the-food-revolution/content:/var/lib/ghost/content
+      - $GHOST_BASE_PATH/ghost/the-food-revolution/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db-the-food-revolution
@@ -35,7 +32,7 @@ services:
       MYSQL_USER: ghost_the_food_revolution
       MYSQL_PASSWORD: ghostpass
     volumes:
-      - /home/kilian/container_data/ghost/mysql-the-food-revolution:/var/lib/mysql
+      - $GHOST_BASE_PATH/mysql-the-food-revolution:/var/lib/mysql
     networks:
       - hephaistos
 
