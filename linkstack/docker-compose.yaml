@@ -1,6 +1,10 @@
 services:
   linkstack:
     image: linkstackorg/linkstack:latest
+    container_name: linkstack
+    restart: unless-stopped
+    ports:
+      - "8879:80"
     environment:
       - TZ=Europe/Berlin
       - SERVER_ADMIN=gabrielle.coulon@yahoo.fr
@@ -9,12 +13,9 @@ services:
       - LOG_LEVEL=info
       - PHP_MEMORY_LIMIT=512M
       - UPLOAD_MAX_FILESIZE=16M
-    ports:
-      - "8879:80"
     volumes:
-      #- linkstack:/htdocs
-      - $LINKSTACK_BASE_PATH/htdocs:/htdocs
-    restart: unless-stopped
+      - linkstack:/htdocs
+      #- $LINKSTACK_BASE_PATH/htdocs:/htdocs
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
       interval: 2m
@@ -28,5 +29,5 @@ networks:
   hephaistos:
     external: true
 
-#volumes:
-#  linkstack:
+volumes:
+  linkstack:
