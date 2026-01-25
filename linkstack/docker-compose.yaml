@@ -12,7 +12,8 @@ services:
     ports:
       - "8879:80"
     volumes:
-      - linkstack:/htdocs
+      #- linkstack:/htdocs
+      - $LINKSTACK_BASE_PATH/htdocs:/htdocs
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
@@ -27,5 +28,5 @@ networks:
   hephaistos:
     external: true
 
-volumes:
-  linkstack:
+#volumes:
+#  linkstack:
