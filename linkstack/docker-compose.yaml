@@ -1,26 +1,31 @@
 services:
   linkstack:
-    image: ilyavassyutovich/linkstack:v4.8.4
-    container_name: linkstack
-    hostname: linkstack
-    restart: unless-stopped
-    ports:
-      - "8878:80"
-    user: "${UID}:${GID}"
+    image: linkstackorg/linkstack:latest
     environment:
-      TZ: "Europe/Zurich"
-      PHP_MEMORY_LIMIT: "512M"
-      UPLOAD_MAX_FILESIZE: "16M"
-      #HTTPS_SERVER_NAME: "the-food-revolution.com"    # Optional
-      #HTTP_SERVER_NAME: "192.168.1.45"
-      LOG_LEVEL: "debug"
-      #FORCE_HTTPS: "true"
+      - TZ=Europe/Berlin
+      - SERVER_ADMIN=gabrielle.coulon@yahoo.fr
+      - HTTP_SERVER_NAME=localhost
+      - HTTPS_SERVER_NAME=links.the-food-revolution.com
+      - LOG_LEVEL=info
+      - PHP_MEMORY_LIMIT=512M
+      - UPLOAD_MAX_FILESIZE=16M
+    ports:
+      - "8879:80"
     volumes:
-      - $LINKSTACK_BASE_PATH/data:/htdocs
-      - $LINKSTACK_BASE_PATH/config:/app/config
-    #healthcheck:
-    #  test: ["CMD", "curl", "-f", "http://localhost:80"]
-    #  interval: 2m
-    #  timeout: 10s
-    #  retries: 3
-    #  start_period: 30s
+      - linkstack:/htdocs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
+
+volumes:
+  linkstack:
