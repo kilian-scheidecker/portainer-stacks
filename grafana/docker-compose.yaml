@@ -9,6 +9,7 @@ services:
     environment:
       - GF_SERVER_ROOT_URL=$ROOT_URL 
       - GF_SECURITY_ALLOW_EMBEDDING=$ALLOW_EMBEDDING
+      - GF_SECURITY_COOKIE_SAMESITE=$COOKIE_SAMESITE
     volumes:
     - $GRAFANA_BASE_PATH/data:/var/lib/grafana
     networks:
