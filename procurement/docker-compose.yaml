@@ -37,7 +37,7 @@ services:
       start_period: 30s
 
   qbittorrent:
-    image: linuxserver/qbittorrent:v5.1.4
+    image: linuxserver/qbittorrent:5.1.4
     container_name: qbittorrent
     restart: unless-stopped
     ports:
