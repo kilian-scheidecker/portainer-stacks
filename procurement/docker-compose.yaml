@@ -23,7 +23,7 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - $STACK_BASE_PATH/jackett/config:/config
+      - jackett_config:/config
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9117"]
@@ -46,7 +46,7 @@ services:
       - TZ=Etc/CET
       - WEBUI_PORT=8080
     volumes:
-      - $STACK_BASE_PATH/qbittorrent/config:/config
+      - qbittorrent_config:/config
       - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
     healthcheck:
@@ -67,7 +67,7 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - $STACK_BASE_PATH/radarr/config:/config
+      - radarr_config:/config
       - $MEDIA_PATH/movies:/movies
       - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
@@ -90,7 +90,7 @@ services:
       - PGID=1000
       - TZ=Etc/CET
     volumes:
-      - $STACK_BASE_PATH/sonarr/config:/config
+      - sonarr_config:/config
       - $MEDIA_PATH/series:/tv
       - $STACK_BASE_PATH/qbittorrent/downloads:/downloads
       - /etc/timezone:/etc/timezone:ro
