@@ -15,7 +15,7 @@ services:
       - procurement
 
   jackett:
-    image: linuxserver/jackett:latest
+    image: linuxserver/jackett:v0.24.512
     container_name: jackett
     restart: unless-stopped
     ports:
@@ -37,7 +37,7 @@ services:
       start_period: 30s
 
   qbittorrent:
-    image: linuxserver/qbittorrent:latest
+    image: linuxserver/qbittorrent:v5.1.4
     container_name: qbittorrent
     restart: unless-stopped
     ports:
@@ -63,7 +63,7 @@ services:
       start_period: 30s
 
   radarr:
-    image: linuxserver/radarr:latest
+    image: linuxserver/radarr:v6.0.4.10291
     container_name: radarr
     ports:
       - 7878:7878
@@ -88,7 +88,7 @@ services:
     
 
   sonarr:
-    image: linuxserver/sonarr:latest
+    image: linuxserver/sonarr:v4.0.17.2952
     container_name: sonarr
     ports:
       - 8989:8989
