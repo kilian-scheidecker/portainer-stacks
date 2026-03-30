@@ -11,6 +11,8 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
+    networks:
+      - procurement
 
   jackett:
     image: linuxserver/jackett:latest
@@ -25,6 +27,8 @@ services:
     volumes:
       - jackett_config:/config
       - /etc/timezone:/etc/timezone:ro
+    networks:
+      - procurement
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9117"]
       interval: 2m
@@ -49,6 +53,8 @@ services:
       - qbittorrent_config:/config
       - $DOWNLOADS_DIR:/downloads
       - /etc/timezone:/etc/timezone:ro
+    networks:
+      - procurement
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080"]
       interval: 2m
@@ -71,6 +77,8 @@ services:
       - $MEDIA_PATH/movies:/movies
       - $DOWNLOADS_DIR:/downloads
       - /etc/timezone:/etc/timezone:ro
+    networks:
+      - procurement
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:7878"]
       interval: 2m
@@ -94,13 +102,18 @@ services:
       - $MEDIA_PATH/series:/tv
       - $DOWNLOADS_DIR:/downloads
       - /etc/timezone:/etc/timezone:ro
+    networks:
+      - procurement
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8989"]
       interval: 2m
       timeout: 10s
       retries: 3
       start_period: 30s
-    
+
+networks:
+  procurement:
+    external: true
 
 volumes:
   jackett_config:
