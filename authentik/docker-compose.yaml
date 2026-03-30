@@ -1,5 +1,4 @@
 services:
-
   # PostgrSQL database for authentik
   postgresql:
     image: docker.io/library/postgres:16-alpine
@@ -36,8 +35,8 @@ services:
       AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
     volumes:
-    - $AUTHENTIK_BASE_PATH/media:/media
-    - $AUTHENTIK_BASE_PATH/custom-templates:/templates
+    - authentik_media:/media
+    - authentik_templates:/templates
     networks:
       - hephaistos
     depends_on:
@@ -59,9 +58,9 @@ services:
       AUTHENTIK_BOOTSTRAP_PASSWORD: ${AUTHENTIK_BOOTSTRAP_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $AUTHENTIK_BASE_PATH/media:/media
-      - $AUTHENTIK_BASE_PATH/certs:/certs
-      - $AUTHENTIK_BASE_PATH/custom-templates:/templates
+      - authentik_media:/media
+      - authentik_certs:/certs
+      - authentik_templates:/templates
     networks:
       - hephaistos
     depends_on:
@@ -73,5 +72,8 @@ networks:
     external: true
 
 volumes:
+  authentik_media:
+  authentik_certs:
+  authentik_templates:
   database:
     driver: local
