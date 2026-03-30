@@ -63,7 +63,7 @@ services:
       start_period: 30s
 
   radarr:
-    image: linuxserver/radarr:v6.0.4
+    image: linuxserver/radarr:6.0.4
     container_name: radarr
     ports:
       - 7878:7878
@@ -88,7 +88,7 @@ services:
     
 
   sonarr:
-    image: linuxserver/sonarr:v4.0.17
+    image: linuxserver/sonarr:4.0.17
     container_name: sonarr
     ports:
       - 8989:8989
