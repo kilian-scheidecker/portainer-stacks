@@ -11,16 +11,14 @@ services:
       GRAMPSWEB_CELERY_CONFIG__result_backend: "redis://grampsweb_redis:6379/0"
       GRAMPSWEB_RATELIMIT_STORAGE_URI: redis://grampsweb_redis:6379/1
     volumes:
-      - $GRAMPS_BASE_PATH/users:/app/users  # persist user database
-      - $GRAMPS_BASE_PATH/index:/app/indexdir  # persist search index
-      - $GRAMPS_BASE_PATH/thumb_cache:/app/thumbnail_cache  # persist thumbnails
-      - $GRAMPS_BASE_PATH/cache:/app/cache  # persist export and report caches
-      - $GRAMPS_BASE_PATH/secret:/app/secret  # persist flask secret
-      - $GRAMPS_BASE_PATH/grampsdb:/root/.gramps/grampsdb  # persist Gramps database
-      - $GRAMPS_BASE_PATH/media:/app/media  # persist media files
-      - $GRAMPS_BASE_PATH/tmp:/tmp
-    #networks:
-    #  - hephaistos
+      - gramps_users:/app/users  # persist user database
+      - gramps_index:/app/indexdir  # persist search index
+      - gramps_thumb_cache:/app/thumbnail_cache  # persist thumbnails
+      - gramps_cache:/app/cache  # persist export and report caches
+      - gramps_secret:/app/secret  # persist flask secret
+      - gramps_db:/root/.gramps/grampsdb  # persist Gramps database
+      - gramps_media:/app/media  # persist media files
+      - gramps_tmp:/tmp
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:5000 || exit 1"]
       interval: 30s
@@ -42,7 +40,6 @@ services:
     healthcheck:
       disable: true
     
-
   grampsweb_redis:
     image: docker.io/library/redis:7.2.4-alpine
     container_name: grampsweb_redis
@@ -50,6 +47,12 @@ services:
     healthcheck:
       disable: true
 
-#networks:
-#  hephaistos:
-#    external: true
+volumes:
+  gramps_users:
+  gramps_index:
+  gramps_thumb_cache:
+  gramps_cache:
+  gramps_secret:
+  gramps_db:
+  gramps_media:
+  gramps_tmp:
