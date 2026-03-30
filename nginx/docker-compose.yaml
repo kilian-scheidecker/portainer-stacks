@@ -9,8 +9,8 @@ services:
       - "443:443"  # Port https
       - "81:81"    # NPM Web UI
     volumes:
-      - nginx/data:/data
-      - nginx/letsencrypt:/etc/letsencrypt
+      - nginx_data:/data
+      - nginx_letsencrypt:/etc/letsencrypt
     networks:
       - hephaistos
     healthcheck:
@@ -24,4 +24,5 @@ networks:
   hephaistos:
     external: true
 volumes:
-  nginx:
+  nginx_data:
+  nginx_letsencrypt:
