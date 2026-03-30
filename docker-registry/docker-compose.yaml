@@ -8,7 +8,7 @@ services:
       - "5000:5000"
     restart: unless-stopped
     volumes:
-      - $REGISTRY_BASE_PATH:/var/lib/registry
+      - container_registry:/var/lib/registry
     environment:
       - REGISTRY_STORAGE_DELETE_ENABLED=true
       - REGISTRY_HTTP_HEADERS_Access-Control-Allow-Origin=["https://docker-registry-ui.petits-bouts.com"]
@@ -50,3 +50,6 @@ services:
 networks:
   hephaistos:
     external: true
+
+volumes:
+  container_registry:
