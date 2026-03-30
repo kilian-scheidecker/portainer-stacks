@@ -4,12 +4,11 @@ services:
     container_name: jellyfin
     network_mode: host
     ports:
-      - 8920:8920
       - 8096:8096
     volumes:
-      - $JELLYFIN_BASE_NFS/config:/config
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
       - /home/kilian/container_data/jellyfin/media:/media
-      - $JELLYFIN_BASE_NFS/cache:/cache
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8096"]
@@ -18,3 +17,6 @@ services:
       retries: 3
       start_period: 30s
       
+volumes:
+  jellyfin_config:
+  jellyfin_cache:
