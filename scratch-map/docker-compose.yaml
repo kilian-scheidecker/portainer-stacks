@@ -17,10 +17,14 @@ services:
       LOG_LEVEL: INFO
       NODE_ENV: production
     volumes:
-      - $SCRATCHMAP_BASE_PATH:/volume1/docker/scratchmap:rw
+      - scratchmap:/volume1/docker/scratchmap:rw
     networks:
       - hephaistos
 
 networks:
   hephaistos:
     external: true
+
+volumes:
+  scratchmap:
+
