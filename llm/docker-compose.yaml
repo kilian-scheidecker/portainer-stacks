@@ -14,6 +14,7 @@ services:
       --threads 9
       --ctx-size 2048
       --n-gpu-layers 0
+      --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
