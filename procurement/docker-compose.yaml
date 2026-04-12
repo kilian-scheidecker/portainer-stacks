@@ -80,7 +80,7 @@ services:
     networks:
       - procurement
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7878"]
+      test: ["CMD", "curl", "-sSf", "http://localhost:7878"]
       interval: 2m
       timeout: 10s
       retries: 3
@@ -105,7 +105,7 @@ services:
     networks:
       - procurement
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8989"]
+      test: ["CMD", "curl", "-sSfl", "http://localhost:8989/login"]
       interval: 2m
       timeout: 10s
       retries: 3
