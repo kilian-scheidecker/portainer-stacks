@@ -1,0 +1,45 @@
+services:
+  ghost-nova-defence:
+    image: ghost:5
+    container_name: ghost_nova_defence
+    restart: always
+    environment:
+      database__client: mysql
+      database__connection__host: db-nova-defence
+      database__connection__user: $GHOST_USER
+      database__connection__password: $GHOST_PW
+      database__connection__database: ghostdb_nova_defence
+      url: $URL
+      TRUST_PROXY: true
+      force__https: false
+      security__staffDeviceVerification: false
+    volumes:
+      - nova_defence_ghost_content:/var/lib/ghost/content
+      - $GHOST_BASE_PATH/nova-defence/config.production.json:/var/lib/ghost/config.production.json
+      - /etc/timezone:/etc/timezone:ro
+    depends_on:
+      - db-nova-defence
+    networks:
+        - hephaistos
+
+  db-nova-defence:
+    image: mysql:8
+    container_name: ghost_db_nova_defence
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PW
+      MYSQL_DATABASE: ghostdb_nova_defence
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PW
+    volumes:
+      - nova_defence_mysql:/var/lib/mysql
+    networks:
+      - hephaistos
+
+volumes:
+  nova_defence_mysql:
+  nova_defence_ghost_content:
+
+networks:
+  hephaistos:
+    external: true
