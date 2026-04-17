@@ -1,0 +1,56 @@
+services:
+
+  # Prometheus from scraping logs
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    # ports:
+    #   - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - prom_config:/etc/prometheus
+      - prom_data:/prometheus
+    networks:
+      - hephaistos
+
+  # Graphite exporter to expose graphite metrics of TrueNAS
+  graphite-exporter:
+    image: prom/graphite-exporter:latest
+    container_name: graphite-exporter
+    # ports:
+    #   - "9109:9109"  # Graphite input
+    #   - "9108:9108"  # Prometheus scrapes metrics here
+    command:
+      - '--graphite.listen-address=:9109'
+      - '--web.listen-address=:9108'
+    restart: unless-stopped
+    networks:
+      - hephaistos
+  
+   # PVE exporter to expose proxmox metrics 
+  pve-exporter:
+    image: prompve/prometheus-pve-exporter
+    container_name: pve-exporter
+    # ports:
+    #   - "9221:9221"
+    restart: unless-stopped
+    volumes:
+      - /etc/prometheus:/etc/prometheus:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9221"]
+      interval: 2m
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    networks:
+      - hephaistos
+
+
+
+
+
+networks:
+  hephaistos:
+    external: true
