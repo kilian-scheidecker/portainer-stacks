@@ -37,7 +37,7 @@ services:
     #   - "9221:9221"
     restart: unless-stopped
     volumes:
-      - /etc/prometheus:/etc/prometheus:ro
+      - prom_config:/etc/prometheus:ro
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9221"]
       interval: 2m
@@ -48,7 +48,9 @@ services:
       - hephaistos
 
 
-
+volumes:
+  prom_config:
+  prom_data:
 
 
 networks:
