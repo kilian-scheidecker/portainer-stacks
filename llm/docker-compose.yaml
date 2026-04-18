@@ -15,6 +15,7 @@ services:
       --threads 9
       --n-gpu-layers 0
       --ctx-size 4096
+      --context-shift
       --repeat-penalty 1.5
       --reasoning-budget 0
     healthcheck:
