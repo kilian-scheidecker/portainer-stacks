@@ -17,7 +17,8 @@ services:
       --ctx-size 8192
       --context-shift
       --repeat-penalty 1.5
-      --reasoning-budget 256
+      --temperature 0.9
+      --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
