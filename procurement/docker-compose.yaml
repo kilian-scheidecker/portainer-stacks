@@ -15,7 +15,7 @@ services:
       - procurement
 
   jackett:
-    image: linuxserver/jackett:0.24.512
+    image: linuxserver/jackett:0.24.1622
     container_name: jackett
     restart: unless-stopped
     ports:
@@ -63,7 +63,7 @@ services:
       start_period: 30s
 
   radarr:
-    image: linuxserver/radarr:6.0.4
+    image: linuxserver/radarr:6.1.1
     container_name: radarr
     ports:
       - 7878:7878
