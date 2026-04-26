@@ -5,6 +5,8 @@ services:
     restart: unless-stopped
     volumes:
       - /opt/llm/models:/models:ro
+    ports:
+      - 8000:8000
     networks:
       - hephaistos
     command: >
