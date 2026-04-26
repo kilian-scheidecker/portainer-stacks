@@ -84,6 +84,20 @@ services:
     volumes:
       - ./qdrant_data:/qdrant/storage
 
+  rag-bridge:
+    image: 192.168.1.45:5000/rag-bridge:latest
+    container_name: rag-bridge
+    restart: unless-stopped
+    ports: 
+      - "8002:80"
+    command: uv run fastapi run src/main.py --port 80
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
+
 networks:
   hephaistos:
     external: true
