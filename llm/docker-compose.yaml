@@ -1,12 +1,22 @@
 services:
   llama:
-    image: ghcr.io/ggml-org/llama.cpp:server
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
     container_name: llama-cpp
     restart: unless-stopped
     volumes:
       - /opt/llm/models:/models:ro
     ports:
       - 8000:8000
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     networks:
       - hephaistos
     command: >
@@ -15,7 +25,7 @@ services:
       --port 8000
       --no-webui
       --threads 12
-      --n-gpu-layers 0
+      --n-gpu-layers 35
       --ctx-size 8192
       --context-shift
       --repeat-penalty 1.1
