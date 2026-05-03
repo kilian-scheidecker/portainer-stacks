@@ -20,18 +20,14 @@ services:
     networks:
       - hephaistos
     command: >
-      -m /models/Qwen3.5-9B-Q4_K_M.gguf
+      -m /models/Qwen3.5-35B-A3B-Q4_K_M.gguf
       --host 0.0.0.0
       --port 8000
       --no-webui
       --threads 12
-      --n-gpu-layers -1
-      --ctx-size 16384
-      --batch-size 1024
-      --context-shift
-      --repeat-penalty 1.1
-      --temperature 1
-      --reasoning-budget 0
+      --n-gpu-layers 2       # Load only 2 layers on GPU
+      --ctx-size 4096
+      --batch-size 512
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
