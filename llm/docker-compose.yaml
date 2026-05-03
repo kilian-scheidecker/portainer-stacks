@@ -25,9 +25,13 @@ services:
       --port 8000
       --no-webui
       --threads 12
-      --n-gpu-layers 2       # Load only 2 layers on GPU
+      --n-gpu-layers 2
       --ctx-size 4096
       --batch-size 512
+      --context-shift
+      --repeat-penalty 1.1
+      --temperature 1
+      --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
