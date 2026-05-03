@@ -25,7 +25,7 @@ services:
       --port 8000
       --no-webui
       --threads 12
-      --n-gpu-layers 35
+      --n-gpu-layers -1
       --ctx-size 8192
       --context-shift
       --repeat-penalty 1.1
