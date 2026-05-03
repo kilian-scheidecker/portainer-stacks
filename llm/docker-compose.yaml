@@ -20,14 +20,13 @@ services:
     networks:
       - hephaistos
     command: >
-      -m /models/Qwen3.6-35B-A3B-UD-Q4_K_XL.gguf
+      -m /models/Qwen3.5-9B-Q4_K_M.gguf
       --host 0.0.0.0
       --port 8000
       --no-webui
-      --threads 12
+      --threads 8
       --n-gpu-layers -1
-      --ctx-size 4096
-      --batch-size 512
+      --ctx-size 32768
       --context-shift
       --repeat-penalty 1.1
       --temperature 1
