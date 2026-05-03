@@ -27,6 +27,7 @@ services:
       --threads 12
       --n-gpu-layers -1
       --ctx-size 32768
+      -- batch-size 1024
       --context-shift
       --repeat-penalty 1.1
       --temperature 1
