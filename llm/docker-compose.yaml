@@ -26,7 +26,7 @@ services:
       --no-webui
       --threads 12
       --n-gpu-layers -1
-      --ctx-size 32768
+      --ctx-size 16384
       --batch-size 1024
       --context-shift
       --repeat-penalty 1.1
