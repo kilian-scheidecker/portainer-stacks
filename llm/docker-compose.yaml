@@ -21,15 +21,15 @@ services:
       - hephaistos
     command: >
       -m /models/Qwen3VL-4B-Instruct-Q4_K_M.gguf
+      --mmproj /models/mmproj-Qwen3VL-4B-Instruct-Q8_0.gguf
       --host 0.0.0.0
       --port 8000
-      --vision
       --no-webui
-      --threads 12
-      --n-gpu-layers 25
+      --threads 8
+      --n-gpu-layers 10
       --ctx-size 4096
-      --batch-size 256
-      --context-shift
+      --batch-size 64
+      --ubatch-size 32
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
