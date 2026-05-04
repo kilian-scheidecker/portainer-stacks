@@ -23,6 +23,7 @@ services:
       -m /models/Qwen3VL-4B-Instruct-Q8_0.gguf
       --host 0.0.0.0
       --port 8000
+      --vision
       --no-webui
       --threads 12
       --n-gpu-layers -1
