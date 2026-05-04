@@ -26,13 +26,10 @@ services:
       --vision
       --no-webui
       --threads 12
-      --n-gpu-layers -1
+      --n-gpu-layers 25
       --ctx-size 4096
       --batch-size 256
       --context-shift
-      --repeat-penalty 1.1
-      --temperature 0.7
-      --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
