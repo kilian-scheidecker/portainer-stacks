@@ -26,12 +26,13 @@ services:
       --port 8000
       --no-webui
       --threads 8
-      --n-gpu-layers 10
+      --n-gpu-layers -1
       --ctx-size 8192
-      --batch-size 64
+      --batch-size 128
       --ubatch-size 32
       --temperature 0.7
       --repeat-penalty 1.1
+      --context-shift
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
