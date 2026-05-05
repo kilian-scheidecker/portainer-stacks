@@ -30,6 +30,8 @@ services:
       --ctx-size 8192
       --batch-size 64
       --ubatch-size 32
+      --temperature 0.7
+      --repeat-penalty 1.1
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
