@@ -28,7 +28,7 @@ services:
       --threads 8
       --n-gpu-layers -1
       --ctx-size 8192
-      -fa
+      --flash-attn 1
       --batch-size 128
       --ubatch-size 32
       --temperature 0.6
