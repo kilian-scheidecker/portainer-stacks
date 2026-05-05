@@ -32,7 +32,7 @@ services:
       --batch-size 128
       --ubatch-size 64
       --temperature 0.6
-      --repeat-penalty 1.0
+      --repeat-penalty 1.2
       --presence-penalty 1.5
       --context-shift
       --top-k 20
