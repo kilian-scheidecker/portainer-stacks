@@ -28,14 +28,13 @@ services:
       --threads 8
       --n-gpu-layers -1
       --ctx-size 8192
-      #--flash-attn 1
+      --flash-attn on
       --batch-size 128
-      --ubatch-size 32
+      --ubatch-size 64
       --temperature 0.6
       --repeat-penalty 1.0
       --presence-penalty 1.5
       --context-shift
-      --greedy false
       --top-k 20
       --top-p 0.8
     healthcheck:
