@@ -1,5 +1,6 @@
 # Common healthcheck template
 stack-common:
+  &stack-common
   healthcheck:
     &common-healthcheck
     interval: 2m
