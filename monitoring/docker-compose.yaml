@@ -1,8 +1,6 @@
 # Common healthcheck template
-stack-common:
-  &stack-common
-  healthcheck:
-    &common-healthcheck
+x-common:
+  healthcheck: &common-healthcheck
     interval: 2m
     timeout: 10s
     retries: 3
