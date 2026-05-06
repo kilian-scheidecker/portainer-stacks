@@ -1,5 +1,14 @@
-services:
+# Common healthcheck template
+&stack-common:
+  healthcheck:
+    &common-healthcheck
+    interval: 2m
+    timeout: 10s
+    retries: 3
+    start_period: 30s
 
+
+services:
   # Prometheus from scraping logs
   prometheus:
     image: prom/prometheus
@@ -14,6 +23,9 @@ services:
       - prom_data:/prometheus
     networks:
       - hephaistos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090"]
+      <<: *common-healthcheck
 
   # Graphite exporter to expose graphite metrics of TrueNAS
   graphite-exporter:
@@ -28,6 +40,9 @@ services:
     restart: unless-stopped
     networks:
       - hephaistos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9108"]
+      <<: *common-healthcheck
   
    # PVE exporter to expose proxmox metrics 
   pve-exporter:
@@ -38,14 +53,11 @@ services:
     restart: unless-stopped
     volumes:
       - prom_config:/etc/prometheus:ro
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9221"]
-      interval: 2m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
     networks:
       - hephaistos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9221"]
+      <<: *common-healthcheck
 
   # GPU stats exporter
   gpustat-exporter:
@@ -68,6 +80,9 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9101"]
+      <<: *common-healthcheck
 
 
 volumes:
