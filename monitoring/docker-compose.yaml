@@ -54,6 +54,8 @@ services:
     restart: unless-stopped
     # ports:
     #   - "9101:9101"
+    command:
+      - "--scrape.interval=5s"
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=utility
