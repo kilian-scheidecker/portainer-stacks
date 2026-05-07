@@ -38,7 +38,7 @@ services:
       --repeat-penalty 1.0
       --presence-penalty 0.3
       --reasoning-budget 512
-      -lv 4                    # Set logs to debug mode
+      --log-verbose 4                    # Set logs to debug mode
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       interval: 30s
