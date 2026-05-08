@@ -20,8 +20,8 @@ services:
     networks:
       - hephaistos
     command: >
-      -m /models/Qwen3VL-8B-Thinking-Q4_K_M.gguf
-      --mmproj /models/mmproj-Qwen3VL-8B-Thinking-Q8_0.gguf
+      -m /models/Qwen3VL-4B-Thinking-Q4_K_M.gguf
+      --mmproj /models/mmproj-Qwen3VL-4B-Thinking-Q8_0.gguf
       --host 0.0.0.0
       --port 8000
       --no-webui
