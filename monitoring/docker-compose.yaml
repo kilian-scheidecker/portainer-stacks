@@ -14,8 +14,6 @@ services:
     container_name: prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
-    # ports:
-    #   - 9090:9090
     restart: unless-stopped
     volumes:
       - prom_config:/etc/prometheus
@@ -30,9 +28,6 @@ services:
   graphite-exporter:
     image: prom/graphite-exporter:v0.16.0
     container_name: graphite-exporter
-    # ports:
-    #   - "9109:9109"  # Graphite input
-    #   - "9108:9108"  # Prometheus scrapes metrics here
     command:
       - '--graphite.listen-address=:9109'
       - '--web.listen-address=:9108'
@@ -47,8 +42,6 @@ services:
   pve-exporter:
     image: prompve/prometheus-pve-exporter
     container_name: pve-exporter
-    # ports:
-    #   - "9221:9221"
     restart: unless-stopped
     volumes:
       - prom_config:/etc/prometheus:ro
@@ -63,8 +56,6 @@ services:
     image: 192.168.1.45:5000/gpustat-exporter:latest
     container_name: gpustat-exporter
     restart: unless-stopped
-    # ports:
-    #   - "9101:9101"
     command:
       - "--scrape.interval=5s"
     environment:
@@ -79,9 +70,9 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-    healthcheck:
-      test: [ "CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/9101;echo -e \"GET / HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3" ]
-      <<: *common-healthcheck
+    # healthcheck:
+    #   test: [ "CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/9101;echo -e \"GET / HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3" ]
+    #   <<: *common-healthcheck
 
 
 volumes:
