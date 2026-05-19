@@ -70,9 +70,9 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-    # healthcheck:
-    #   test: [ "CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/9101;echo -e \"GET / HTTP/1.1\r\nhost: http://localhost\r\nConnection: close\r\n\r\n\" >&3;grep \"HTTP/1.1 200 OK\" <&3" ]
-    #   <<: *common-healthcheck
+    healthcheck:
+      test: [ "CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/9101; echo -e 'GET /health HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3; grep 'HTTP/1.1 200 OK' <&3" ]
+      <<: *common-healthcheck
 
 
 volumes:
