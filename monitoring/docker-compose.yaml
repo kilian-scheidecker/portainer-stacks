@@ -23,7 +23,7 @@ services:
     networks:
       - hephaistos
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9090"]
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:9090"]
       <<: *common-healthcheck
 
   # Graphite exporter to expose graphite metrics of TrueNAS
@@ -40,7 +40,7 @@ services:
     networks:
       - hephaistos
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9108"]
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:9108"]
       <<: *common-healthcheck
   
    # PVE exporter to expose proxmox metrics 
@@ -55,7 +55,7 @@ services:
     networks:
       - hephaistos
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9221"]
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:9221"]
       <<: *common-healthcheck
 
   # GPU stats exporter
