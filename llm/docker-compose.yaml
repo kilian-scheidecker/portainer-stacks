@@ -1,3 +1,12 @@
+# Common healthcheck template
+x-common:
+  healthcheck: &common-healthcheck
+    interval: 2m
+    timeout: 10s
+    retries: 3
+    start_period: 30s
+
+
 services:
   llama:
     image: ghcr.io/ggml-org/llama.cpp:server-cuda
@@ -41,10 +50,6 @@ services:
       --log-verbosity 4
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:v0.8.12
@@ -78,10 +83,6 @@ services:
       - open-webui-data:/app/backend/data
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8080/health || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
 
   qdrant:
     image: qdrant/qdrant:latest
@@ -101,6 +102,8 @@ services:
         target: /qdrant/config/production.yaml
     volumes:
       - ./qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/6333; echo -e 'GET /dashboard HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3; grep 'HTTP/1.1 200 OK' <&3"]
 
   rag-bridge:
     image: 192.168.1.45:5000/rag-bridge:latest
@@ -111,6 +114,8 @@ services:
     command: uv run fastapi run src/main.py --port 80
     networks:
       - hephaistos
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/80; echo -e 'GET /docs HTTP/1.1\r\nhost: localhost\r\nConnection: close\r\n\r\n' >&3; grep 'HTTP/1.1 200 OK' <&3"]
 
 networks:
   hephaistos:
