@@ -52,6 +52,38 @@ services:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
 
+  llama-2:
+    image: ghcr.io/ggml-org/llama.cpp:server-cuda
+    container_name: llama-cpp-2
+    restart: unless-stopped
+    volumes:
+      - /opt/llm/models:/models:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    networks:
+      - hephaistos
+    command: >
+      -m /models/granite-4.0-h-1b-Q4_K_M.gguf
+      --host 0.0.0.0
+      --port 8000
+      --no-webui
+      --threads 12
+      --n-gpu-layers -1
+      --ctx-size 8192
+      --context-shift
+      --reasoning-budget 0
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
+      <<: *common-healthcheck
+
   open-webui:
     image: ghcr.io/open-webui/open-webui:v0.8.12
     container_name: open-webui
