@@ -58,6 +58,8 @@ services:
     restart: unless-stopped
     volumes:
       - /opt/llm/models:/models:ro
+    ports:
+      - 8003:8000
     deploy:
       resources:
         reservations:
