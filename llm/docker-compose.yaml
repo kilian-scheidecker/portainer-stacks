@@ -14,8 +14,8 @@ services:
     restart: unless-stopped
     volumes:
       - /opt/llm/models:/models:ro
-    ports:
-      - 8000:8000
+    # ports:
+    #   - 8000:8000
     deploy:
       resources:
         reservations:
@@ -58,8 +58,8 @@ services:
     restart: unless-stopped
     volumes:
       - /opt/llm/models:/models:ro
-    ports:
-      - 8003:8000
+    # ports:
+    #   - 8003:8000
     deploy:
       resources:
         reservations:
@@ -82,6 +82,9 @@ services:
       --ctx-size 16384
       --context-shift
       --reasoning-budget 0
+      --temperature 0.7
+      --top-k 20
+      --top-p 0.8
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
@@ -112,6 +115,8 @@ services:
       - ENABLE_OAUTH_SIGNUP=true
       - ENABLE_LOGIN_FORM=false
       - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
+      - QDRANT_URI=http://qdrant:6333                                                                        
+      - VECTOR_DB=qdrant
     networks:
       - hephaistos
     volumes:
