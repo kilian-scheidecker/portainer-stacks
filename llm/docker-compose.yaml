@@ -46,7 +46,6 @@ services:
       --repeat-penalty 1.0
       --presence-penalty 1.5
       --reasoning-budget 512
-      --log-verbosity 4
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
