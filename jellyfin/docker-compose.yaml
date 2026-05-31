@@ -5,6 +5,7 @@ services:
     network_mode: host
     ports:
       - 8096:8096
+    cpus: 6.0
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
