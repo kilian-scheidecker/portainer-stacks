@@ -46,6 +46,7 @@ services:
       --repeat-penalty 1.0
       --presence-penalty 1.5
       --reasoning-budget 0
+      --chat-template-kwargs { "enable_thinking": false }
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
