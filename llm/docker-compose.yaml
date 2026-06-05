@@ -43,10 +43,7 @@ services:
       --temperature 1.0
       --top-k 64
       --top-p 0.95
-      --min_p 0.0
-      --repeat-penalty 1.0
-      --presence-penalty 1.5
-      --reasoning-budget 512
+      --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
