@@ -13,21 +13,23 @@ services:
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:v2.6.3
-    # extends:
-    #   file: hwaccel.transcoding.yml
-    #   service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    restart: always
+    ports:
+      - 2283:2283
+    extends:
+      file: hwaccel.transcoding.yml
+      service: cpu # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding. For cpu-only set to "cpu"
     environment:
       - UPLOAD_LOCATION:${UPLOAD_LOCATION}
     volumes:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - 2283:2283
+    cpus: 6.0
+    gpus: all
     depends_on:
       - redis
       - database
-    restart: always
     healthcheck:
       disable: false
     networks:
@@ -36,15 +38,17 @@ services:
 
   immich-machine-learning:
     container_name: immich_machine_learning
+    restart: always
     # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
     # Example tag: ${IMMICH_VERSION:-release}-cuda
-    image: ghcr.io/immich-app/immich-machine-learning:v2
-    # extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
-    #   file: hwaccel.ml.yml
-    #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    image: ghcr.io/immich-app/immich-machine-learning:v2-cuda
+    extends: # uncomment this section for hardware acceleration - see https://immich.app/docs/features/ml-hardware-acceleration
+      file: hwaccel.ml.yml
+      service: cuda # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
       - model-cache:/cache
-    restart: always
+    cpus: 8.0
+    gpus: all
     healthcheck:
       disable: false
     networks:
