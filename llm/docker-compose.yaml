@@ -37,12 +37,14 @@ services:
       --no-webui
       --threads 8
       --n-gpu-layers 48
-      --ctx-size 16384
+      --ctx-size 8192
       --context-shift
       --flash-attn on
       --temperature 1.0
       --top-k 64
       --top-p 0.95
+      --cache-type-k q8_0
+      --cache-type-v q8_0
       --reasoning-budget 0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
