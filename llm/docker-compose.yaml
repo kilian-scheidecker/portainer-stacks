@@ -31,7 +31,7 @@ services:
     # -m /models/Qwen3.5-9B-Q4_K_M.gguf
     # --mmproj /models/mmproj-F16.gguf
     command: >
-      -m /models/gemma-4-12b-it-Q4_K_S.gguf
+      -m /models/gemma-4-12b-it-Q3_K_M.gguf
       --host 0.0.0.0
       --port 8000
       --no-webui
