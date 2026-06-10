@@ -36,7 +36,7 @@ services:
       --port 8000
       --no-webui
       --threads 8
-      --n-gpu-layers -1
+      --n-gpu-layers 99
       --ctx-size 16384
       --context-shift
       --flash-attn on
