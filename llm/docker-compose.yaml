@@ -41,7 +41,7 @@ services:
       --context-shift
       --flash-attn on
       --temperature 0.7
-      -- repeat-penalty 1.0
+      --repeat-penalty 1.0
       --presence-penalty 1.5
       --reasoning-budget 512
     healthcheck:
