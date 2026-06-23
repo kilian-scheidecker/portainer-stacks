@@ -35,15 +35,18 @@ services:
       --host 0.0.0.0
       --port 8000
       --no-webui
-      --threads 8
+      --threads 10
       --n-gpu-layers -1
-      --ctx-size 16384
+      --ctx-size 32768
       --context-shift
       --flash-attn on
       --temperature 0.7
+      --top-k 20
+      --top-p 0.8
+      --min_p 0.0
       --repeat-penalty 1.0
       --presence-penalty 1.5
-      --reasoning-budget 0
+      --reasoning-budget 512
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
