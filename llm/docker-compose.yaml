@@ -52,7 +52,7 @@ services:
       <<: *common-healthcheck
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:v0.8.12
+    image: ghcr.io/open-webui/open-webui:0.10.2
     container_name: open-webui
     restart: unless-stopped
     depends_on:
