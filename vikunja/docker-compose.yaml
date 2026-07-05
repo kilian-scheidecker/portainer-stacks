@@ -1,0 +1,31 @@
+services:
+  vikunja:
+    container_name: vikunja
+    image: vikunja/vikunja
+    restart: unless-stopped
+    user: $USER
+    environment:
+      VIKUNJA_SERVICE_SECRET: $VIKUNJA_SERVICE_SECRET
+      VIKUNJA_SERVICE_PUBLICURL: $VIKUNJA_SERVICE_PUBLICURL
+      VIKUNJA_CORS_ENABLE: false
+      VIKUNJA_AUTH_OPENID_ENABLED: true
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: false
+      VIKUNJA_AUTH_LOCAL_ENABLED: false
+      # The official image already presets this to /db/vikunja.db; it is shown
+      # explicitly here so the database file lives in the ./db volume below and
+      # state is persisted even if the container is destroyed.
+      VIKUNJA_DATABASE_PATH: /db/vikunja.db
+    volumes:
+      - files:/app/vikunja/files
+      - db:/db
+      - /mnt/nfs/container_data/vikunja/nova_config.yaml:/etc/vikunja/config.yml:ro
+    networks:
+      - hephaistos
+
+volumes:
+  files:
+  db:
+
+networks:
+  hephaistos:
+    external: true
