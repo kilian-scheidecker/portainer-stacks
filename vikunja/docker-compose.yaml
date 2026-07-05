@@ -18,7 +18,7 @@ services:
     volumes:
       - files:/app/vikunja/files
       - db:/db
-      - /mnt/nfs/container_data/vikunja/nova_config.yaml:/etc/vikunja/config.yml:ro
+      - $VIKUNJA_CONFIG_FILE:/etc/vikunja/config.yml:ro
     networks:
       - hephaistos
 
