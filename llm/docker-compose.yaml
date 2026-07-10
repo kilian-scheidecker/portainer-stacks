@@ -32,7 +32,7 @@ services:
     # --mmproj /models/mmproj-F16.gguf
     command: >
       -m /models/Qwen3.5-9B-Q4_K_M.gguf
-      --mmproj /models/mmproj-Qwen3VL-4B-Instruct-Q8_0.gguf
+      --mmproj /models/mmproj-F16.gguf
       --host 0.0.0.0
       --port 8000
       --no-webui
