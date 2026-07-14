@@ -80,6 +80,7 @@ services:
       - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
       - QDRANT_URI=http://qdrant:6333                                                                        
       - VECTOR_DB=qdrant
+      - ENABLE_OPENAI_API=true
     networks:
       - hephaistos
     volumes:
