@@ -48,6 +48,9 @@ services:
       --repeat-penalty 1.1
       --presence-penalty 1.5
       --reasoning-budget 512
+      --parallel 1
+      --cache-type-k q4_0
+      --cache-type-v q4_0
     healthcheck:
       test: ["CMD-SHELL", "curl -fsS http://localhost:8000/health || exit 1"]
       <<: *common-healthcheck
