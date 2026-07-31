@@ -3,21 +3,28 @@ services:
     image: jellyfin/jellyfin:10.10.7
     container_name: jellyfin
     network_mode: host
+    restart: unless-stopped
     ports:
       - 8096:8096
-    cpus: 6.0
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
       - /home/kilian/container_data/jellyfin/media:/media
-    restart: unless-stopped
+    environment:
+      - JELLYFIN_PublishedServerUrl=$JELLYFIN_URL
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8096"]
       interval: 2m
       timeout: 10s
       retries: 3
       start_period: 30s
+    networks:
+      - hephaistos
       
 volumes:
   jellyfin_config:
   jellyfin_cache:
+
+networks:
+  hephaistos:
+    external: true
