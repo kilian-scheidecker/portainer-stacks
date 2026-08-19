@@ -38,7 +38,7 @@ services:
       --no-webui
       --threads 10
       --n-gpu-layers -1
-      --ctx-size 16384
+      --ctx-size 32768
       --context-shift
       --flash-attn on
       --temperature 0.7
