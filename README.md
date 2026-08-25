@@ -4,7 +4,6 @@ This repository contains Docker Compose configurations for all containers deploy
 
 All containers are defined and versioned here. Portainer monitors the repository for updates and redeploys stacks accordingly.
 
----
 
 ## 🧭 Architecture
 
@@ -17,7 +16,6 @@ All containers are defined and versioned here. Portainer monitors the repository
 - **Stack Deployment**:  
   Each service has its own folder with a `docker-compose.yaml` file. These are configured as **Git-based stacks** in Portainer.
 
----
 
 ## 🔄 Update Strategy
 
@@ -26,31 +24,6 @@ All containers are defined and versioned here. Portainer monitors the repository
 - Pull requests are opened automatically for review before updates are merged.
 - No containers use the `:latest` tag; updates are explicit and controlled.
 
----
-
-## 🧰 Managed Services
-
-The following services are defined as Portainer stacks:
-
-- **Flaresolverr**  
-  Image: `ghcr.io/flaresolverr/flaresolverr`
-
-- **Jackett**  
-  Image: `linuxserver/jackett`
-
-- **Jellyfin**  
-  Image: `jellyfin/jellyfin`
-
-- **qBittorrent**  
-  Image: `linuxserver/qbittorrent`
-
-- **Radarr**  
-  Image: `linuxserver/radarr`
-
-- **Sonarr**  
-  Image: `linuxserver/sonarr`
-
----
 
 ## 🔧 Portainer Stack Setup
 
@@ -64,7 +37,6 @@ To connect a stack in Portainer:
    - Compose file path (e.g., `radarr/docker-compose.yaml`)
 5. Configure auto-update settings if needed
 
----
 
 ## 📁 Repository Structure
 
@@ -72,23 +44,16 @@ Each directory corresponds to a Portainer stack:
 
 ```bash
 /
-├── flaresolverr/
+├── authentik/
 │   └── docker-compose.yaml  
-├── jackett/
+├── cloudflared/
 │   └── docker-compose.yaml  
 ├── jellyfin/
 │   └── docker-compose.yaml  
-├── qbittorrent/
-│   └── docker-compose.yaml  
-├── radarr/
-│   └── docker-compose.yaml  
-├── sonarr/
-│   └── docker-compose.yaml  
+...
 ├── renovate.json  
 └── README.md
 ```
-
----
 
 ## 📑 Notes
 
