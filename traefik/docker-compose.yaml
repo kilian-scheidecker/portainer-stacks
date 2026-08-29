@@ -1,21 +1,53 @@
 services:
   traefik:
-    image: "traefik:v2.0.0-rc3"
-    container_name: "traefik"
+    image: traefik:v3.7
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "80:80"
+      - "443:443"
+      - "81:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $TRAEFIK_DIR/certs:/certs:ro
+      - $TRAEFIK_DIR/dynamic:/dynamic:ro
     command:
-      #- "--log.level=DEBUG"
-      - "--api.insecure=true"
+      # EntryPoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.websecure.http.tls=true"
+      # Attach the static configuration tls.yaml file that contains the tls configuration settings
+      - "--providers.file.filename=/dynamic/tls.yaml"
+      # Providers 
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-    ports:
-      - "80:80"     # HTTP ingress
-      - "443:443"   # HTTPS ingress
-      - "81:8080"   # ui
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "--providers.docker.network=proxy"
+      # API & Dashboard 
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      # Observability 
+      - "--log.level=INFO"
+      - "--accesslog=true"
+      - "--metrics.prometheus=true"
     networks:
+     # Connect to the 'traefik_proxy' overlay network for inter-container communication across nodes
+      - proxy
       - hephaistos
+  # Traefik Dynamic configuration via Docker labels
+    labels:
+      # Enable self‑routing
+      - "traefik.enable=true"
+
+      # Dashboard router
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.docker.localhost`)"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.tls=true"
 
 networks:
   hephaistos:
