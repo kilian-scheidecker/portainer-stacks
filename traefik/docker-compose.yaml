@@ -9,7 +9,8 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
-      - "80:80"     # ingress
+      - "80:80"     # HTTP ingress
+      - "443:443"   # HTTPS ingress
       - "81:8080"   # ui
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
