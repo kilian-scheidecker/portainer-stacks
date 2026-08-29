@@ -41,6 +41,12 @@ services:
     networks:
       - hephaistos
       - immich
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=hephaistos"
+      - "traefik.http.routers.immich.rule=Host(`immich.petits-bouts.com`)"
+      - "traefik.http.routers.immich.entrypoints=websecure"
+      - "traefik.http.services.immich.loadbalancer.server.port=2283"
 
   immich-machine-learning:
     container_name: immich_machine_learning

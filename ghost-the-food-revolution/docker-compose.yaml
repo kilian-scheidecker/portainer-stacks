@@ -21,6 +21,11 @@ services:
       - db-the-food-revolution
     networks:
         - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ghost-the-food-revolution.rule=Host(`the-food-revolution.com`)"
+      - "traefik.http.routers.ghost-the-food-revolution.entrypoints=websecure"
+      - "traefik.http.services.ghost-the-food-revolution.loadbalancer.server.port=2368"
 
   db-the-food-revolution:
     image: mysql:8

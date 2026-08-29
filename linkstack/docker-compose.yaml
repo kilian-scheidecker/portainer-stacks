@@ -24,6 +24,11 @@ services:
       start_period: 30s
     networks:
       - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.linkstack.rule=Host(`links.the-food-revolution.com`)"
+      - "traefik.http.routers.linkstack.entrypoints=websecure"
+      - "traefik.http.services.linkstack.loadbalancer.server.port=80"
 
 networks:
   hephaistos:

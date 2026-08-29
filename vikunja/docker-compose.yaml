@@ -21,6 +21,11 @@ services:
       - $VIKUNJA_CONFIG_FILE:/etc/vikunja/config.yml:ro
     networks:
       - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vikunja.rule=Host(`todos.nova-defence.com`)"
+      - "traefik.http.routers.vikunja.entrypoints=websecure"
+      - "traefik.http.services.vikunja.loadbalancer.server.port=3456"
 
 volumes:
   files:

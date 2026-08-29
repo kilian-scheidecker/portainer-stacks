@@ -86,6 +86,11 @@ services:
       - ENABLE_OPENAI_API=true
     networks:
       - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.open-webui.rule=Host(`llm.petits-bouts.com`)"
+      - "traefik.http.routers.open-webui.entrypoints=websecure"
+      - "traefik.http.services.open-webui.loadbalancer.server.port=8080"
     volumes:
       - open-webui-data:/app/backend/data
     healthcheck:
