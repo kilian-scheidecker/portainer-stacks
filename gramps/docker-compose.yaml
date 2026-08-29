@@ -3,8 +3,8 @@ services:
     image: ghcr.io/gramps-project/grampsweb:latest
     container_name: grampsweb
     restart: unless-stopped
-    ports:
-      - "5001:5000"  # host:docker
+    # ports:
+    #   - "5001:5000"  # host:docker
     environment:
       GRAMPSWEB_TREE: "Gramps Web"  # will create a new tree if not exists
       GRAMPSWEB_CELERY_CONFIG__broker_url: "redis://grampsweb_redis:6379/0"
@@ -25,6 +25,8 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    networks:
+      - hephaistos
     depends_on:
       - grampsweb_redis
 
@@ -39,6 +41,8 @@ services:
     # No healthcheck
     healthcheck:
       disable: true
+    networks:
+      - hephaistos
     
   grampsweb_redis:
     image: docker.io/library/redis:7.2.4-alpine
@@ -47,6 +51,12 @@ services:
     # No healthcheck
     healthcheck:
       disable: true
+    networks:
+      - hephaistos
+
+networks:
+  hephaistos:
+    external: true
 
 volumes:
   gramps_users:
