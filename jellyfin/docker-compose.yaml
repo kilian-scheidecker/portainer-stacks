@@ -8,7 +8,7 @@ services:
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
-      - /home/kilian/container_data/jellyfin/media:/media
+      - $JELLYFIN_MEDIA_PATH:/media
     environment:
       - JELLYFIN_PublishedServerUrl=$JELLYFIN_URL
     healthcheck:
