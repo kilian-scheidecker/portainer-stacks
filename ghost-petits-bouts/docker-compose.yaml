@@ -21,6 +21,11 @@ services:
       - db-petits-bouts
     networks:
         - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ghost-petits-bouts.rule=Host(`petits-bouts.com`)"
+      - "traefik.http.routers.ghost-petits-bouts.entrypoints=websecure"
+      - "traefik.http.services.ghost-petits-bouts.loadbalancer.server.port=2368"
 
   db-petits-bouts:
     image: mysql:8
