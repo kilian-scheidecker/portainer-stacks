@@ -39,6 +39,11 @@ services:
     - authentik_templates:/templates
     networks:
       - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.authentik.rule=Host(`apps.petits-bouts.com`) || Host(`auth.petits-bouts.com`) || Host(`auth.nova-defence.com`)"
+      - "traefik.http.routers.authentik.entrypoints=websecure"
+      - "traefik.http.services.authentik.loadbalancer.server.port=9000"
     depends_on:
       postgresql:
         condition: service_healthy
