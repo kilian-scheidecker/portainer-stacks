@@ -21,6 +21,11 @@ services:
       - db-nova-defence
     networks:
         - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ghost-nova-defence.rule=Host(`nova-defence.com`) || Host(`www.nova-defence.com`)"
+      - "traefik.http.routers.ghost-nova-defence.entrypoints=websecure"
+      - "traefik.http.services.ghost-nova-defence.loadbalancer.server.port=2368"
 
   db-nova-defence:
     image: mysql:8
