@@ -15,8 +15,8 @@ services:
       force__https: false
       security__staffDeviceVerification: false
     volumes:
-      - /home/kilian/container_data/ghost/princesse-poussin/content:/var/lib/ghost/content
-      - /home/kilian/container_data/ghost/princesse-poussin/config.production.json:/var/lib/ghost/config.production.json
+      - $GHOST_BASE_PATH/princesse-poussin/content:/var/lib/ghost/content
+      - $GHOST_BASE_PATH/princesse-poussin/config.production.json:/var/lib/ghost/config.production.json
       - /etc/timezone:/etc/timezone:ro
     depends_on:
       - db-princesse-poussin
