@@ -35,8 +35,6 @@ services:
       - "--accesslog=true"
       - "--metrics.prometheus=true"
     networks:
-     # Connect to the 'traefik_proxy' overlay network for inter-container communication across nodes
-      - proxy
       - hephaistos
   # Traefik Dynamic configuration via Docker labels
     labels:
