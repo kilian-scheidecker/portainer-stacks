@@ -27,6 +27,11 @@ services:
       start_period: 30s
     networks:
       - hephaistos
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.gramps.rule=Host(`gramps.petits-bouts.com`)"
+      - "traefik.http.routers.gramps.entrypoints=websecure"
+      - "traefik.http.services.gramps.loadbalancer.server.port=5000"
     depends_on:
       - grampsweb_redis
 
@@ -35,6 +40,8 @@ services:
     container_name: grampsweb_celery
     command: celery -A gramps_webapi.celery worker --loglevel=INFO --concurrency=2
     ports: []
+    labels:
+      - "traefik.enable=false"  # background worker, not an HTTP service; overrides the merged labels above
     depends_on:
       - grampsweb
       - grampsweb_redis
