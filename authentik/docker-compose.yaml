@@ -72,6 +72,19 @@ services:
       postgresql:
         condition: service_healthy
 
+  # LDAP outpost - exposes Authentik as an LDAP server for apps like Jellyfin
+  ldap-outpost:
+    image: ghcr.io/goauthentik/ldap:${AUTHENTIK_TAG:-2025.10.3}
+    restart: unless-stopped
+    environment:
+      AUTHENTIK_HOST: http://server:9000
+      AUTHENTIK_INSECURE: "true"
+      AUTHENTIK_TOKEN: ${AUTHENTIK_LDAP_OUTPOST_TOKEN:?ldap outpost token required}
+    networks:
+      - hephaistos
+    depends_on:
+      - server
+
 networks:
   hephaistos:
     external: true
