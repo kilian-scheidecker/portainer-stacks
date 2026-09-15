@@ -17,7 +17,7 @@ services:
       VIKUNJA_DATABASE_PATH: /db/vikunja.db
     volumes:
       - files:/app/vikunja/files
-      - /home/kilian/container_data/vikunja_test:/db
+      - db:/db
       - $VIKUNJA_CONFIG_FILE:/etc/vikunja/config.yml:ro
     networks:
       - hephaistos
