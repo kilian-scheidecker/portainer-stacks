@@ -1,6 +1,6 @@
 services:
   sbb-api:
-    image: docker pull docker-registry.petits-bouts.com/sbb-dashboard-api:v1.0.0
+    image: docker pull registry.gitlab.com/personal-projects-kilian-scheidecker/sbb-departure-api
     ports:
       - "8888:8080"
     restart: unless-stopped
