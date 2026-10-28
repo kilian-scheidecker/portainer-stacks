@@ -4,9 +4,9 @@ services:
     image: docker.io/library/postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${PG_DB:-authentik}
-      POSTGRES_PASSWORD: ${PG_PASS:?database password required}
-      POSTGRES_USER: ${PG_USER:-authentik}
+      POSTGRES_DB: authentik
+      POSTGRES_PASSWORD: ${PG_PASS}
+      POSTGRES_USER: authentik
     volumes:
     - database:/var/lib/postgresql/data
     healthcheck:
@@ -15,14 +15,14 @@ services:
       start_period: 20s
       test:
       - CMD-SHELL
-      - pg_isready -d $${POSTGRES_DB} -U $${POSTGRES_USER}
+      - pg_isready -d authentik -U authentik
       timeout: 5s
     networks:
       - hephaistos
 
   # Authentik server
   server:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
+    image: ghcr.io/goauthentik/server:2025.10.3
     restart: unless-stopped
     command: server
     ports:
@@ -30,10 +30,10 @@ services:
       - 9002:9443
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: authentik
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
-      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
-      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
     volumes:
     - authentik_media:/media
     - authentik_templates:/templates
@@ -50,16 +50,16 @@ services:
 
   # Authentik worker
   worker:
-    image: ${AUTHENTIK_IMAGE:-ghcr.io/goauthentik/server}:${AUTHENTIK_TAG:-2025.10.3}
+    image: ghcr.io/goauthentik/server:2025.10.3
     restart: unless-stopped
     user: root
     command: worker
     environment:
       AUTHENTIK_POSTGRESQL__HOST: postgresql
-      AUTHENTIK_POSTGRESQL__NAME: ${PG_DB:-authentik}
+      AUTHENTIK_POSTGRESQL__NAME: authentik
       AUTHENTIK_POSTGRESQL__PASSWORD: ${PG_PASS}
-      AUTHENTIK_POSTGRESQL__USER: ${PG_USER:-authentik}
-      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
+      AUTHENTIK_POSTGRESQL__USER: authentik
+      AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY}
       AUTHENTIK_BOOTSTRAP_PASSWORD: ${AUTHENTIK_BOOTSTRAP_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -74,12 +74,12 @@ services:
 
   # LDAP outpost - exposes Authentik as an LDAP server for apps like Jellyfin
   ldap-outpost:
-    image: ghcr.io/goauthentik/ldap:${AUTHENTIK_TAG:-2025.10.3}
+    image: ghcr.io/goauthentik/ldap:2025.10.3
     restart: unless-stopped
     environment:
       AUTHENTIK_HOST: http://server:9000
       AUTHENTIK_INSECURE: "true"
-      AUTHENTIK_TOKEN: ${AUTHENTIK_LDAP_OUTPOST_TOKEN:?ldap outpost token required}
+      AUTHENTIK_TOKEN: ${AUTHENTIK_LDAP_OUTPOST_TOKEN}
     networks:
       - hephaistos
     depends_on:
