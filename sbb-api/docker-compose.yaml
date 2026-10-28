@@ -3,14 +3,14 @@ services:
     image: registry.gitlab.com/personal-projects-kilian-scheidecker/sbb-departure-api:latest
     container_name: sbb-api
     ports:
-      - "8888:8080"
+      - "8888:8000"
     restart: unless-stopped
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888"]
-      interval: 2m
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8888"]
+    #   interval: 2m
+    #   timeout: 10s
+    #   retries: 3
+    #   start_period: 30s
