@@ -1,6 +1,6 @@
 services:
   sbb-api:
-    image: registry.gitlab.com/personal-projects-kilian-scheidecker/sbb-departure-api:latest
+    image: registry.gitlab.com/personal-projects-kilian-scheidecker/sbb-departure-api:v1.0.0
     container_name: sbb-api
     ports:
       - "8888:8000"
