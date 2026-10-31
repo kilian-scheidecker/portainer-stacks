@@ -1,6 +1,6 @@
 services:
   ghost-the-food-revolution:
-    image: ghost:5
+    image: ghost:6
     container_name: ghost_the_food_revolution
     restart: always
     environment:
@@ -28,7 +28,7 @@ services:
       - "traefik.http.services.ghost-the-food-revolution.loadbalancer.server.port=2368"
 
   db-the-food-revolution:
-    image: mysql:8
+    image: mysql:26
     container_name: ghost_db_the_food_revolution
     restart: always
     environment:
