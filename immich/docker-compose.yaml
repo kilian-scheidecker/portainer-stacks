@@ -12,7 +12,7 @@ name: immich
 services:
   immich-server:
     container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:v2.6.3
+    image: ghcr.io/immich-app/immich-server:v3.3.5
     restart: always
     ports:
       - 2283:2283
@@ -65,6 +65,8 @@ services:
               count: 1
               capabilities:
                 - gpu
+                - compute
+                - video
     healthcheck:
       disable: false
     networks:
