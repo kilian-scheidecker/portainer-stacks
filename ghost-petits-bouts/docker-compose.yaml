@@ -1,6 +1,6 @@
 services:
   ghost-petits-bouts:
-    image: ghost:5
+    image: ghost:6
     container_name: ghost_petits_bouts
     restart: always
     environment:
@@ -28,7 +28,7 @@ services:
       - "traefik.http.services.ghost-petits-bouts.loadbalancer.server.port=2368"
 
   db-petits-bouts:
-    image: mysql:8
+    image: mysql:26
     container_name: ghost_db_petits_bouts
     restart: always
     environment:
