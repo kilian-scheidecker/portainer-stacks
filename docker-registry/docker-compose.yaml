@@ -27,7 +27,7 @@ services:
 
   # Registry UI for nice web interface to docker images
   registry-ui:
-    image: joxit/docker-registry-ui:2.5-debian
+    image: joxit/docker-registry-ui:2.6-debian
     container_name: registry-ui
     ports:
       - "8081:80"
