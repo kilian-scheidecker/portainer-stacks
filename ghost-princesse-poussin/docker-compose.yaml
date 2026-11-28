@@ -1,6 +1,6 @@
 services:
   ghost-princesse-poussin:
-    image: ghost:5
+    image: ghost:6
     container_name: ghost_princesse_poussin
     restart: always
     environment:
@@ -24,7 +24,7 @@ services:
         - hephaistos
 
   db-princesse-poussin:
-    image: mysql:8
+    image: mysql:26
     container_name: ghost_db_princesse_poussin
     restart: always
     environment:
